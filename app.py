@@ -7,9 +7,11 @@ st.set_page_config(page_title="Movie Tracker", layout="wide")
 create_table()
 
 st.sidebar.title("Navigation")
-page = st.sidebar.radio("Go to", ["Add Movie", "View Movies"])
+page = st.sidebar.radio("Go to", ["Add Content", "View Content", "Wish List"])
 
-if page == "Add Movie":
+if page == "Add Content":
     st.experimental_set_query_params(page="Add_Movie")
-elif page == "View Movies":
+elif page == "View Content":
     st.experimental_set_query_params(page="View_Movies")
+elif page == "Wish List":
+    st.experimental_set_query_params(page="Wish_List")

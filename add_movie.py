@@ -1,14 +1,16 @@
 import streamlit as st
 from db import add_movie
 
-st.title("Add a Movie or Series")
+st.title("Add a New Movie or Series or Book")
 
 title = st.text_input("Movie Title")
-type_of_content = st.radio("Type of Content", ["Movie", "Series"])
+type_of_content = st.radio("Type of Content", ["Movie", "Series", "Book"])
 if type_of_content == "Movie":
     genre_options = ["Horror", "Animation", "Other"]
-else:
+elif type_of_content == "Series":
     genre_options = ["Anime", "Other"]
+else:
+    genre_options = ["Thriller", "Mystery", "Romance"]
 genre = st.selectbox("Select Genre:", genre_options)
 rating = st.slider("Rating", 0.0, 10.0, 5.0)
 date = st.text_area("Date Watched", "No Data")
