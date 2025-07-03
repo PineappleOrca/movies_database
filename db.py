@@ -46,11 +46,11 @@ def create_wish_list_table():
     conn = sqlite3.connect(DB2_NAME)
     cursor = conn.cursor()
     cursor.execute('''
-        CREATE TABLE IF NOT EXISTS movies (
+        CREATE TABLE IF NOT EXISTS wish_list (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             title TEXT,
             content_type TEXT,
-            genre TEXT,
+            genre TEXT
         )
     ''')
     conn.commit()
@@ -61,10 +61,7 @@ def create_wish_list_table():
 def wish_list(title, content_type, genre):
     conn = sqlite3.connect(DB2_NAME)
     cursor = conn.cursor()
-    # Check if the movie already exists
-    cursor.execute("SELECT times_watched FROM movies WHERE title = ?", (title,))
-    result = cursor.fetchone()
-    cursor.execute("INSERT INTO movies (title, content_type, genre) VALUES (?, ?, ?)", (title, content_type, genre))
+    cursor.execute("INSERT INTO wish_list (title, content_type, genre) VALUES (?, ?, ?)", (title, content_type, genre))
     conn.commit()
     conn.close()
 
@@ -74,3 +71,11 @@ def fetch_movies():
     df = pd.read_sql_query("SELECT * FROM movies", conn)
     conn.close()
     return df
+
+# Fetch wish_list
+def fetch_wish_list():
+    conn = sqlite3.connect(DB2_NAME)
+    df = pd.read_sql_query("SELECT * FROM wish_list", conn)
+    conn.close()
+    return df
+
