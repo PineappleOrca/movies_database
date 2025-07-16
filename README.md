@@ -20,7 +20,8 @@
 
 ## 🛠️ Planned Features
 
-- [ ] **Row Cleanup Tool** – delete or fix invalid entries  
+- [ ] **Row Cleanup Tool** – delete or fix invalid entries
+- [ ] **Wish List Clean up - delete records from the wish list once in the watching database
 - [ ] **Date Watched Field** – record when a title was completed  
 - [ ] **Unified Entry Page** – toggle between `Watched` and `Want to Watch`  
 - [ ] **Episodes/Seasons Support** – track anime episodes and series seasons
