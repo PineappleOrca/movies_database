@@ -1,10 +1,16 @@
 import sqlite3
 import pandas as pd
+import os 
 
-DB_NAME = "movies.db"
-DB2_NAME = "wish_list.db"
+# Adding in functionality using the os module for cross platform funcitonality
+# Root Database Folder
+DB_FOLDER = "Database"
+# Individual Database names
+DB_NAME = os.path.join(DB_FOLDER, "movies.db")
+DB2_NAME = os.path.join(DB_FOLDER, "wish_list.db")
+CURRENTLY_WATCHING = os.path.join(DB_FOLDER,"currently_watching.db")
 
-# Create database table
+# Create main movie database table
 def create_table():
     conn = sqlite3.connect(DB_NAME)
     cursor = conn.cursor()
@@ -95,6 +101,24 @@ def get_last_movie():
     if not df.empty:
         last_title = df.iloc[0]['title']
     return last_title
+
+# Create Currently Watching Table
+def create_currently_watching_table():
+    conn = sqlite3.connect(CURRENTLY_WATCHING)
+    cursor = conn.cursor()
+    cursor.execute('''
+        CREATE TABLE IF NOT EXISTS movies (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            title TEXT,
+            content_type TEXT,
+            genre TEXT,
+            episode_count INTEGER DEFAULT 1, 
+            total_episodes INTEGER
+        )
+    ''')
+    conn.commit()
+    conn.close()
+
 
 #Get the last watched series 
 def get_last_watched_series():

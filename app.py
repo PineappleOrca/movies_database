@@ -9,7 +9,6 @@ st.set_page_config(page_title="Movie Tracker", layout="wide")
 
 # Storing some data in Variables which will print on the main screen
 last_movie_watched = get_last_movie()
-print(last_movie_watched)
 
 # Main streamlit print to screen code
 st.title("🎬📚 Our Movies, Series, Anime & Books Tracker")
