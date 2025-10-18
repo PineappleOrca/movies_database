@@ -37,5 +37,5 @@
 ## 🧱 Tech Stack
 
 - **Frontend**: [Streamlit](https://streamlit.io/)
-- **Backend**: CSV or SQLite
+- **Backend**: SQLite
 - **Language**: Python 3.x
