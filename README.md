@@ -20,7 +20,7 @@
 
 ## 🛠️ Planned Features
 
-- [ ] **Row Cleanup Tool** – delete or fix invalid entries
+- [ ] **Row Cleanup Tool** – delete or fix invalid entries, delete duplicate entries e.g. "Shrek 2" vs "Shrek 2 " 
 - [ ] **Wish List Clean up - delete records from the wish list once in the watching database
 - [ ] **Date Watched Field** – record when a title was completed  
 - [ ] **Unified Entry Page** – toggle between `Watched` and `Want to Watch`  
@@ -28,7 +28,11 @@
 - [ ] **Backend APIs in Python 3.x to serve an eventual React Front End
 - [ ] **React Front End
 - [ ] **Database Clean Up and Migration (merging movies.db and wish_list.db into one)
-- [ ] **Database Back up 
+- [ ] **Database Back up
+- [ ] Add a Currently Watching for active Series
+- [ ] Add an Episode Count for Series
+- [ ] Add Personal Page for my own watch list
+- [ ] **Maybe look at a proper front end in Typescript/React or something along those lines 
 
 ## 🧱 Tech Stack
 
