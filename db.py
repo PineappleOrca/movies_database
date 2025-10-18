@@ -58,7 +58,7 @@ def create_wish_list_table():
 
 # Insert new movie for wish list
 # Add or update movie
-def wish_list(title, content_type, genre):
+def add_to_wish_list(title, content_type, genre):
     conn = sqlite3.connect(DB2_NAME)
     cursor = conn.cursor()
     cursor.execute("INSERT INTO wish_list (title, content_type, genre) VALUES (?, ?, ?)", (title, content_type, genre))
@@ -79,3 +79,25 @@ def fetch_wish_list():
     conn.close()
     return df
 
+# Get the last movie watched for Displaying on the main screen
+def get_last_movie():
+    conn = sqlite3.connect(DB_NAME)
+    query = """
+    SELECT title
+    FROM movies
+    WHERE content_type = 'Movie'
+    ORDER BY id DESC
+    LIMIT 1;
+    """
+    df = pd.read_sql_query(query, conn)
+    conn.close()
+    last_title = ""
+    if not df.empty:
+        last_title = df.iloc[0]['title']
+    return last_title
+
+#Get the last watched series 
+def get_last_watched_series():
+    return 0 
+
+#Get the Series currently in Progress 

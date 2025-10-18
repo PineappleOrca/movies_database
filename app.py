@@ -1,17 +1,18 @@
 import streamlit as st
-from db import create_table
+from db import create_table, create_wish_list_table, get_last_movie
 
 st.set_page_config(page_title="Movie Tracker", layout="wide")
 
-# Initialize database
-create_table()
+# Not sure these are required anymore since hte databases for these tables are already created 
+#create_table() 
+#create_wish_list_table()
 
-st.sidebar.title("Navigation")
-page = st.sidebar.radio("Go to", ["Add Content", "View Content", "Wish List"])
+# Storing some data in Variables which will print on the main screen
+last_movie_watched = get_last_movie()
+print(last_movie_watched)
 
-if page == "Add Content":
-    st.experimental_set_query_params(page="Add_Movie")
-elif page == "View Content":
-    st.experimental_set_query_params(page="View_Movies")
-elif page == "Wish List":
-    st.experimental_set_query_params(page="Wish_List")
+# Main streamlit print to screen code
+st.title("🎬📚 Our Movies, Series, Anime & Books Tracker")
+st.markdown("Use the sidebar to navigate between pages.")
+st.markdown("Track what you’ve watched and what you plan to watch together 💑")
+st.write(f"Last Movie Watched: {last_movie_watched}")
