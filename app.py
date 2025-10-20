@@ -11,7 +11,7 @@ st.set_page_config(page_title="Movie Tracker", layout="wide")
 last_movie_watched = get_last_movie()
 
 # Main streamlit print to screen code
-st.title("🎬📚 Our Movies, Series, Anime & Books Tracker")
+st.title("🎬📚 Movies, Series, Anime & Books Tracker")
 st.markdown("Use the sidebar to navigate between pages.")
 st.markdown("Track what you’ve watched and what you plan to watch together 💑")
 st.write(f"Last Movie Watched: {last_movie_watched}")
