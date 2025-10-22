@@ -1,0 +1,14 @@
+# Gitignore to not commit database and other files to git
+
+# Database files
+*.db
+*.sqlite3
+*.dump
+
+# Environment variables 
+.env
+
+
+
+
+
