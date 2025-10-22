@@ -6,8 +6,6 @@ st.title("Our Content List")
 
 df = fetch_movies()
 
-# hello world
-
 if df.empty:
     st.warning("No movies logged yet.")
 else:
@@ -32,8 +30,8 @@ else:
     ######################################################################
     # Getting the individual breakdowns e.g. num horror movies watched
     ######################################################################
-    # Movies
-    horror_movies = df[(df['content_type'] == 'Movie') & (df['genre'] == 'Horror')]
+    # Movies 
+    horror_movies = df[(df['content_type'] == 'Movie') & (df['genre'] == 'Horror')] # instead of doing this manually, have a function that does this once and iterates through possible genres
     animated_movies = df[(df['content_type'] == 'Movie') & (df['genre'] == 'Animation')]
     other_movies = df[(df['content_type'] == 'Movie') & (df['genre'] == 'Other')]
     # Series
@@ -62,7 +60,7 @@ else:
     # Printing the Values on Screen
     ######################################################################
     st.metric("Total Movies:", num_movies)
-    st.metric("Total Horror Movies:", num_horror)
+    st.metric("Total Horror Movies:", num_horror) # loop over results and add "Total $genre Movies:
     st.metric("Total Animated Movies:", num_animated) 
     st.metric("Total Other Movies:", num_other)
 
