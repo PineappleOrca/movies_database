@@ -18,6 +18,11 @@
   - View wishlist on a dedicated page  
   - ✅ *Implemented on 03/07/2025*
 
+- **Currently Watching Page**
+  - Created a function to display the Currently Watching Page
+  - Created a function in db.py to manage the currently watching shows
+  - ✅ *Implemented on 18/10/2025*
+
 ## 🛠️ Planned Features
 
 - [ ] **Row Cleanup Tool** – delete or fix invalid entries, delete duplicate entries e.g. "Shrek 2" vs "Shrek 2 " 
