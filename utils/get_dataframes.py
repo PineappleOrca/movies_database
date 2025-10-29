@@ -24,3 +24,21 @@ def get_movie_genre_df(df, flag):
             return df[df['genre'] == 'Other']
         case _:
             raise Exception("Please enter a flag from Horror/Animated/Other")
+        
+def get_series_genre_df(df, flag):
+    match flag:
+        case 'Anime':
+            return df[df['genre'] == 'Anime']
+        case 'Other':
+            return df[df['genre'] == 'Other']
+        case _:
+            raise Exception("Please enter a flag from Anime/Other")
+        
+def get_book_genre_df(df, flag):
+    match flag:
+        case 'Thriller':
+            return df[df['genre'] == 'Thriller']
+        case 'Mystery':
+            return df[df['genre'] == 'Mystery']
+        case _:
+            raise Exception("Please enter a flag from Thriller or Mystery")

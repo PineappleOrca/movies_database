@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 from db import fetch_movies
 from utils.get_stats import get_sum
-from utils.get_dataframes import get_content_df, get_movie_genre_df
+from utils.get_dataframes import get_content_df, get_movie_genre_df, get_series_genre_df, get_book_genre_df
 
 st.title("Our Content List")
 
@@ -38,11 +38,12 @@ else:
     animated_movies = get_movie_genre_df(movies, 'Animated')
     other_movies = get_movie_genre_df(movies, 'Other')
     # Series
-    anime_series = df[(df['content_type'] == 'Series') & (df['genre'] == 'Anime')]
-    other_series = df[(df['content_type'] == 'Series') & (df['genre'] == 'Other')]
+    anime_series = get_series_genre_df(series, 'Anime')
+    other_series = get_series_genre_df(series, 'Other')
     # Books
-    thriller_books = df[(df['content_type'] == 'Book') & (df['genre'] == 'Thriller')]
-    mystery_books = df[(df['content_type'] == 'Book') & (df['genre'] == 'Mystery')]
+    thriller_books = get_book_genre_df(books, 'Thriller')
+    mystery_books = get_book_genre_df(books, 'Mystery')
+    
     #romance_books = df[(df['content_type'] == 'Books') & (df['genre'] == 'Romance')]
     ######################################################################
     # Getting the numbers of the different types of content
