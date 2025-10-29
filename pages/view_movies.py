@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 from db import fetch_movies
 from utils.get_stats import get_sum
+from utils.get_dataframes import get_content_df
 
 st.title("Our Content List")
 
@@ -19,9 +20,12 @@ else:
     st.subheader("Totals")
     
     # Filtering out by types of content, Movies/Series/Books
-    movies = df[(df['content_type'] == 'Movie')]
-    series = df[(df['content_type'] == 'Series')]
-    books = df[(df['content_type'] == 'Book')]
+    movies = get_content_df(df, 'Movies')
+    series = get_content_df(df, 'Series')
+    books = get_content_df(df, 'Book')
+    #movies = df[(df['content_type'] == 'Movie')]
+    #books = df[(df['content_type'] == 'Book')]
+    #series = df[(df['content_type'] == 'Series')]
 
     # Getting the totals of Moves/Series/Books
     num_movies = get_sum(movies)
