@@ -1,3 +1,10 @@
+## What is this Repository?
+- A centralised database for all content I (or any user) have consumed, with fun stats.
+- Yea but Why? I wwatch a lot of movies/series and consume a lot of content in general. I was using Google sheets/Docs/Notes (on Mac) to keep track of what I was watching.
+- I have used sites like myanimelist and goodreads to keep track of the content but thought since I can program a bit why not make my own centralised app which can track everything for me and display cool stats, because who doesn't like stats?
+- I also wanted to improve my own programming/software engineering skills so thought this would be a cool project
+- The vision is to have a front end site/dashboard to enter all the content I (or any user) has consumed, which then gets stored. Over time as you keep adding to it you can generate stats like "most Watched", keep track of shows you want to watch, progress in those shows (for sites which don't track progress well :D)
+
 ## 🚀 Features
 
 ### ✅ Current Functionality
