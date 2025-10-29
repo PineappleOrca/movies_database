@@ -29,10 +29,17 @@
   - Created a function to display the Currently Watching Page
   - Created a function in db.py to manage the currently watching shows
   - ✅ *Implemented on 18/10/2025*
+ 
+## 🦗 Known Bugs
+- [ ] Currently not cleaning the data being entered so "Shrek 2" and "Shrek 2  " are two different entries
+- [ ] Wish list not displaying
+- [ ] currently watching not displaying
+
 
 ## 🛠️ Planned Features
 
-- [ ] **Row Cleanup Tool** – delete or fix invalid entries, delete duplicate entries e.g. "Shrek 2" vs "Shrek 2 " 
+- [ ] **Row Cleanup Tool** – delete or fix invalid entries, delete duplicate entries e.g. "Shrek 2" vs "Shrek 2 "
+- [ ] **Data Entry Cleanup** - remove whitespaces from entries
 - [ ] **Wish List Clean up - delete records from the wish list once in the watching database
 - [ ] **Date Watched Field** – record when a title was completed  
 - [ ] **Unified Entry Page** – toggle between `Watched` and `Want to Watch`  
