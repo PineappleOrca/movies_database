@@ -1,6 +1,8 @@
 import streamlit as st
 import pandas as pd
 from db import fetch_movies
+from utils.get_stats import get_sum
+from utils.get_dataframes import get_content_df, get_movie_genre_df, get_series_genre_df, get_book_genre_df
 
 st.title("Our Content List")
 
@@ -18,42 +20,45 @@ else:
     st.subheader("Totals")
     
     # Filtering out by types of content, Movies/Series/Books
-    movies = df[(df['content_type'] == 'Movie')]
-    series = df[(df['content_type'] == 'Series')]
-    books = df[(df['content_type'] == 'Book')]
+    movies = get_content_df(df, 'Movies')
+    series = get_content_df(df, 'Series')
+    books = get_content_df(df, 'Book')
 
     # Getting the totals of Moves/Series/Books
-    num_movies = movies['times_watched'].sum()
-    num_series = series['times_watched'].sum()
-    num_books = books['times_watched'].sum()
+    num_movies = get_sum(movies)
+    num_series = get_sum(series)
+    num_books = get_sum(books)
 
     ######################################################################
     # Getting the individual breakdowns e.g. num horror movies watched
     ######################################################################
-    # Movies 
-    horror_movies = df[(df['content_type'] == 'Movie') & (df['genre'] == 'Horror')] # instead of doing this manually, have a function that does this once and iterates through possible genres
-    animated_movies = df[(df['content_type'] == 'Movie') & (df['genre'] == 'Animation')]
-    other_movies = df[(df['content_type'] == 'Movie') & (df['genre'] == 'Other')]
+    # Movies
+    #horror_movies = df[(df['content_type'] == 'Movie') & (df['genre'] == 'Horror')]
+    horror_movies = get_movie_genre_df(movies, 'Horror')
+    animated_movies = get_movie_genre_df(movies, 'Animated')
+    other_movies = get_movie_genre_df(movies, 'Other')
     # Series
-    anime_series = df[(df['content_type'] == 'Series') & (df['genre'] == 'Anime')]
-    other_series = df[(df['content_type'] == 'Series') & (df['genre'] == 'Other')]
+    anime_series = get_series_genre_df(series, 'Anime')
+    other_series = get_series_genre_df(series, 'Other')
     # Books
-    thriller_books = df[(df['content_type'] == 'Book') & (df['genre'] == 'Thriller')]
-    mystery_books = df[(df['content_type'] == 'Book') & (df['genre'] == 'Mystery')]
+    thriller_books = get_book_genre_df(books, 'Thriller')
+    mystery_books = get_book_genre_df(books, 'Mystery')
+    
     #romance_books = df[(df['content_type'] == 'Books') & (df['genre'] == 'Romance')]
     ######################################################################
     # Getting the numbers of the different types of content
     ######################################################################
     # Movies
-    num_horror = horror_movies['times_watched'].sum()
-    num_animated = animated_movies['times_watched'].sum()
-    num_other = other_movies['times_watched'].sum()
+    #num_horror = horror_movies['times_watched'].sum()
+    num_horror = get_sum(horror_movies)
+    num_animated = get_sum(animated_movies)
+    num_other = get_sum(other_movies)
     # Series
-    num_anime_series = anime_series['times_watched'].sum()
-    num_other_series = other_series['times_watched'].sum()
+    num_anime_series = get_sum(anime_series)
+    num_other_series = get_sum(other_series)
     # Books
-    num_thriller = thriller_books['times_watched'].sum()
-    num_mystery = mystery_books['times_watched'].sum()
+    num_thriller = get_sum(thriller_books)
+    num_mystery = get_sum(mystery_books)
  
 
     ######################################################################
