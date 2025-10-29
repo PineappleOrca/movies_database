@@ -23,9 +23,6 @@ else:
     movies = get_content_df(df, 'Movies')
     series = get_content_df(df, 'Series')
     books = get_content_df(df, 'Book')
-    #movies = df[(df['content_type'] == 'Movie')]
-    #books = df[(df['content_type'] == 'Book')]
-    #series = df[(df['content_type'] == 'Series')]
 
     # Getting the totals of Moves/Series/Books
     num_movies = get_sum(movies)
@@ -36,7 +33,9 @@ else:
     # Getting the individual breakdowns e.g. num horror movies watched
     ######################################################################
     # Movies
-    horror_movies = df[(df['content_type'] == 'Movie') & (df['genre'] == 'Horror')]
+    #horror_movies = df[(df['content_type'] == 'Movie') & (df['genre'] == 'Horror')]
+    print(movies)
+    horror_movies = get_content_df(movies, 'Horror')
     animated_movies = df[(df['content_type'] == 'Movie') & (df['genre'] == 'Animation')]
     other_movies = df[(df['content_type'] == 'Movie') & (df['genre'] == 'Other')]
     # Series
