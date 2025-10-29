@@ -8,6 +8,8 @@
 # Environment variables 
 .env
 
+# pycache files
+*.pyc 
 
 
 
