@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 from db import fetch_movies
+from utils.get_stats import get_sum
 
 st.title("Our Content List")
 
@@ -23,9 +24,9 @@ else:
     books = df[(df['content_type'] == 'Book')]
 
     # Getting the totals of Moves/Series/Books
-    num_movies = movies['times_watched'].sum()
-    num_series = series['times_watched'].sum()
-    num_books = books['times_watched'].sum()
+    num_movies = get_sum(movies)
+    num_series = get_sum(series)
+    num_books = get_sum(books)
 
     ######################################################################
     # Getting the individual breakdowns e.g. num horror movies watched
@@ -45,15 +46,16 @@ else:
     # Getting the numbers of the different types of content
     ######################################################################
     # Movies
-    num_horror = horror_movies['times_watched'].sum()
-    num_animated = animated_movies['times_watched'].sum()
-    num_other = other_movies['times_watched'].sum()
+    #num_horror = horror_movies['times_watched'].sum()
+    num_horror = get_sum(horror_movies)
+    num_animated = get_sum(animated_movies)
+    num_other = get_sum(other_movies)
     # Series
-    num_anime_series = anime_series['times_watched'].sum()
-    num_other_series = other_series['times_watched'].sum()
+    num_anime_series = get_sum(anime_series)
+    num_other_series = get_sum(other_series)
     # Books
-    num_thriller = thriller_books['times_watched'].sum()
-    num_mystery = mystery_books['times_watched'].sum()
+    num_thriller = get_sum(thriller_books)
+    num_mystery = get_sum(mystery_books)
  
 
     ######################################################################
