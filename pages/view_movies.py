@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 from db import fetch_movies
 from utils.get_stats import get_sum
-from utils.get_dataframes import get_content_df
+from utils.get_dataframes import get_content_df, get_movie_genre_df
 
 st.title("Our Content List")
 
@@ -34,10 +34,9 @@ else:
     ######################################################################
     # Movies
     #horror_movies = df[(df['content_type'] == 'Movie') & (df['genre'] == 'Horror')]
-    print(movies)
-    horror_movies = get_content_df(movies, 'Horror')
-    animated_movies = df[(df['content_type'] == 'Movie') & (df['genre'] == 'Animation')]
-    other_movies = df[(df['content_type'] == 'Movie') & (df['genre'] == 'Other')]
+    horror_movies = get_movie_genre_df(movies, 'Horror')
+    animated_movies = get_movie_genre_df(movies, 'Animated')
+    other_movies = get_movie_genre_df(movies, 'Other')
     # Series
     anime_series = df[(df['content_type'] == 'Series') & (df['genre'] == 'Anime')]
     other_series = df[(df['content_type'] == 'Series') & (df['genre'] == 'Other')]
