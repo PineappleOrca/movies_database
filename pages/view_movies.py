@@ -65,7 +65,7 @@ else:
     # Printing the Values on Screen
     ######################################################################
     st.metric("Total Movies:", num_movies)
-    st.metric("Total Horror Movies:", num_horror)
+    st.metric("Total Horror Movies:", num_horror) # loop over results and add "Total $genre Movies:
     st.metric("Total Animated Movies:", num_animated) 
     st.metric("Total Other Movies:", num_other)
 
