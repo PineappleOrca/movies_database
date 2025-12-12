@@ -1,10 +1,13 @@
 import streamlit as st
 import pandas as pd
-from db import fetch_wish_list
+from db import fetch_wish_list, fetch_movies
 
 st.title("Our Content List")
 
-df = fetch_wish_list()
+# updating it so that 
+#df = fetch_wish_list()
+df = fetch_movies()
+df = df[df["watch_status"] == "Want To Watch"]
 
 if df.empty:
     st.warning("No movies logged yet.")

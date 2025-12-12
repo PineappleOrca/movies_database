@@ -60,7 +60,6 @@ else:
     num_thriller = get_sum(thriller_books)
     num_mystery = get_sum(mystery_books)
  
-
     ######################################################################
     # Printing the Values on Screen
     ######################################################################
