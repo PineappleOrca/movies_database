@@ -11,6 +11,10 @@
 # pycache files
 *.pyc 
 
+# shell scripts
+*.sh 
 
+# not sure what this is 
+.DS_Store
 
 
