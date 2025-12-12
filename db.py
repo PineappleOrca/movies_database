@@ -11,7 +11,17 @@ DB2_NAME = os.path.join(DB_FOLDER, "wish_list.db")
 CURRENTLY_WATCHING = os.path.join(DB_FOLDER,"currently_watching.db")
 
 # Create main movie database table
-def create_table():
+def create_table()->None:
+    '''
+    This Function takes no input and creates a sqlite table called movies with schema
+    id (INT) Primary Key Auto incrementing
+    title (TEXT)
+    content_type (TEXT)
+    genre (TEXT)
+    times_watched INTEGER with a defualt value of 1 
+    :params: None 
+    :returns: None
+    '''
     conn = sqlite3.connect(DB_NAME)
     cursor = conn.cursor()
     cursor.execute('''
@@ -28,7 +38,7 @@ def create_table():
 
 # Insert new movie
 # Add or update movie
-def add_movie(title, content_type, genre):
+def add_movie(title: str, content_type: str, genre: str) -> None:
     conn = sqlite3.connect(DB_NAME)
     cursor = conn.cursor()
     
@@ -48,7 +58,7 @@ def add_movie(title, content_type, genre):
     conn.close()
 
 # Create the wish list data table
-def create_wish_list_table():
+def create_wish_list_table() -> None:
     conn = sqlite3.connect(DB2_NAME)
     cursor = conn.cursor()
     cursor.execute('''
@@ -64,7 +74,7 @@ def create_wish_list_table():
 
 # Insert new movie for wish list
 # Add or update movie
-def add_to_wish_list(title, content_type, genre):
+def add_to_wish_list(title, content_type, genre) -> None:
     conn = sqlite3.connect(DB2_NAME)
     cursor = conn.cursor()
     cursor.execute("INSERT INTO wish_list (title, content_type, genre) VALUES (?, ?, ?)", (title, content_type, genre))
@@ -86,7 +96,7 @@ def fetch_wish_list():
     return df
 
 # Get the last movie watched for Displaying on the main screen
-def get_last_movie():
+def get_last_movie()->str:
     conn = sqlite3.connect(DB_NAME)
     query = """
     SELECT title
@@ -103,7 +113,7 @@ def get_last_movie():
     return last_title
 
 # Create Currently Watching Table
-def create_currently_watching_table():
+def create_currently_watching_table() -> None:
     conn = sqlite3.connect(CURRENTLY_WATCHING)
     cursor = conn.cursor()
     cursor.execute('''
@@ -121,7 +131,20 @@ def create_currently_watching_table():
 
 
 #Get the last watched series 
-def get_last_watched_series():
-    return 0 
+def get_last_watched_series()->str:
+    conn = sqlite3.connect(DB_NAME)
+    query = """
+    SELECT title
+    FROM movies
+    WHERE content_type = 'Series'
+    ORDER BY id DESC
+    LIMIT 1;
+    """
+    df = pd.read_sql_query(query, conn)
+    conn.close()
+    last_title = ""
+    if not df.empty:
+        last_title = df.iloc[0]['title']
+    return last_title
 
 #Get the Series currently in Progress 
