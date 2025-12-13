@@ -1,4 +1,21 @@
 import pandas as pd
+import os
+import sqlite3 
+
+def read_database()->pd.DataFrame:
+    """
+    Docstring for read_database
+    :params: None
+    :return: This is a general function which we can use to read in the entire movies database
+    :rtype: pandas DataFrame
+    """
+    DB_FOLDER = "database"
+    DB_NAME = os.path.join(DB_FOLDER, "movies.db")
+    conn = sqlite3.connect(DB_NAME)
+    query = """
+    SELECT * FROM MOVIES;
+    """
+    return pd.read_sql_query(query, conn)
 
 def get_content_df(df: pd.DataFrame, flag:str)->pd.DataFrame:
     match flag:
@@ -42,3 +59,15 @@ def get_book_genre_df(df: pd.DataFrame, flag: str)-> pd.DataFrame:
             return df[df['genre'] == 'Mystery']
         case _:
             raise Exception("Please enter a flag from Thriller or Mystery")
+        
+def get_currently_watching()->pd.DataFrame:
+    '''
+    Docstring for get_currently_watching
+    :params: None
+    :return: This function returns the dataframe for the content under the currently watching category. 
+    :rtype: pandas DataFrame
+    '''
+    df = read_database()
+    return df[df["watch_status"] == "Want To Watch"]
+
+
