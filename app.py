@@ -21,7 +21,7 @@ st.markdown("Use the sidebar to navigate between pages.")
 st.markdown("Track what you’ve watched and what you plan to watch together 💑")
 st.write(f"Last Movie Watched: {last_movie_watched}")
 st.write(f"Last Series Watched: {last_series_watched}")
-st.write(f"Most Frequentle Watched Movie: {most_watched_movie}")
+st.write(f"Most Frequently Watched Movie: {most_watched_movie}")
 
 # Display the dataframe for series in progress
 st.title("Currently Watching")
