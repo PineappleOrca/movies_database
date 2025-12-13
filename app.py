@@ -13,7 +13,7 @@ st.set_page_config(page_title="Movie Tracker", layout="wide")
 last_movie_watched = get_last_movie()
 most_watched_movie = get_most_watched_movie()
 last_series_watched = get_last_watched_series()
-currently_watching = get_currently_watching()
+df = get_currently_watching()
 
 # Main streamlit print to screen code
 st.title("🎬📚 Movies, Series, Anime & Books Tracker")
@@ -24,3 +24,5 @@ st.write(f"Last Series Watched: {last_series_watched}")
 st.write(f"Most Frequentle Watched Movie: {most_watched_movie}")
 
 # Display the dataframe for series in progress
+st.title("Currently Watching")
+st.dataframe(df)

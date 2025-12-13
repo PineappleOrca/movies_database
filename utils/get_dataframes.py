@@ -68,6 +68,6 @@ def get_currently_watching()->pd.DataFrame:
     :rtype: pandas DataFrame
     '''
     df = read_database()
-    return df[df["watch_status"] == "Want To Watch"]
+    return df[df["watch_status"] == "Currently Watching"]
 
 
