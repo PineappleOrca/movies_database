@@ -2,6 +2,7 @@ import streamlit as st
 from db import create_table, create_wish_list_table, get_last_movie, get_last_watched_series
 from utils.get_stats import get_most_watched_movie
 from utils.get_dataframes import get_currently_watching
+from utils.update_dataframes import update_content_episode_watched
 
 st.set_page_config(page_title="Movie Tracker", layout="wide")
 
@@ -26,3 +27,9 @@ st.write(f"Most Frequently Watched Movie: {most_watched_movie}")
 # Display the dataframe for series in progress
 st.title("Currently Watching")
 st.dataframe(df)
+
+#Update the currently watching episodes 
+st.title("Update Series Episode Count")
+title = st.text_input("Series Name")
+episodes = st.text_input("Episodes Watched in session")
+update_content_episode_watched(title, episodes)

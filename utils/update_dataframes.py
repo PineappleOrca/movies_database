@@ -52,6 +52,25 @@ def update_content_episode_watched(content_name: str, episodes_watched: int)-> N
     '''
     conn = get_database()
     df = fetch_database()
+    # Making sure only shows being actively watched are being updated
+    df = df[df['watch_status'] == 'Currently Watching']
     df = df[df['title'] == content_name]
     if df.empty:
         print("Please enter a valid content_name")
+    else:
+        # Add a check to see if the show has episodes_watched < total_episodes
+        query = ''
+        query = """
+        UPDATE movies 
+        SET episodes_watched = ?
+        WHERE title = ?
+        """
+        try:
+            conn.execute(query, (content_name, episodes_watched))
+        except sqlite3.Error as e:
+            print(f"An error has occurred as {e}")
+        finally:
+            conn.close()
+
+def get_episodes_watched():
+    pass
