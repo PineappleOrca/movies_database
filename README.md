@@ -22,6 +22,16 @@
   - Created a function to display the Currently Watching Page
   - Created a function in db.py to manage the currently watching shows
   - ✅ *Implemented on 18/10/2025*
+ 
+- ** Row Clean Up Tool**
+  - Added checker to remove white spaces from title input
+  - ✅ *Implemented on 14/12/2025*
+ 
+- ** Currently Watching List on main landing page **
+- ✅ *Implemented on 14/12/2025*
+
+- ** Unified database and added fields to distinguish between watch_status **
+- ✅ *Implemented on 14/12/2025*
 
 ## 🛠️ Planned Features
 
