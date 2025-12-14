@@ -7,6 +7,7 @@ from utils.get_dataframes import get_content_df, get_movie_genre_df, get_series_
 st.title("Our Content List")
 
 df = fetch_movies()
+df = df[df["watch_status"] == "Watched"]
 
 if df.empty:
     st.warning("No movies logged yet.")
@@ -16,7 +17,7 @@ else:
     if genre_filter != "All":
         df = df[df["genre"] == genre_filter]
 
-    st.dataframe(df[["title", "content_type", "genre", "times_watched"]])
+    st.dataframe(df[["title", "content_type", "genre", "times_watched", "watch_status", "episodes_watched", "total_episodes"]])
     st.subheader("Totals")
     
     # Filtering out by types of content, Movies/Series/Books
