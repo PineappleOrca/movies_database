@@ -60,17 +60,39 @@ def update_content_episode_watched(content_name: str, episodes_watched: int)-> N
     else:
         # Add a check to see if the show has episodes_watched < total_episodes
         query = ''
-        query = """
-        UPDATE movies 
-        SET episodes_watched = ?
-        WHERE title = ?
-        """
-        try:
-            conn.execute(query, (content_name, episodes_watched))
-        except sqlite3.Error as e:
-            print(f"An error has occurred as {e}")
-        finally:
-            conn.close()
+        watched, total = get_episodes_watched(), get_total_episodes()
+        new_episodes = watched + episodes_watched
+        if new_episodes < total:
+            query = """
+            UPDATE movies 
+            SET episodes_watched = ?
+            WHERE title = ?
+            """
+            try:
+                conn.execute(query, (new_episodes, content_name))
+            except sqlite3.Error as e:
+                print(f"An error has occurred as {e}")
+            finally:
+                conn.close()
+        elif new_episodes >= total:
+            query = """
+            UPDATE movies 
+            SET episodes_watched = ?, watch_status = ?
+            WHERE title = ?
+            """
+            watch_status = 'Watched'
+            try:
+                conn.execute(query, (new_episodes, watch_status, content_name))
+            except sqlite3.Error as e:
+                print(f"An error has occurred as {e}")
+            finally:
+                conn.close()
 
-def get_episodes_watched():
-    pass
+def get_episodes_watched(content_name: str)->int:
+    df = fetch_database()
+    return df.loc[df['title'] == content_name, 'episodes_watched']
+
+def get_total_episodes(content_name: str)->int:
+    df = fetch_database()
+    return df.loc[df['title'] == content_name, 'total_episodes']
+
