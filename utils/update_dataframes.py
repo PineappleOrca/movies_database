@@ -41,3 +41,17 @@ def update_content_watch_status(content_name: str, watch_status: str)-> None:
         # Closing the connection to the database
         conn.close()
 
+def update_content_episode_watched(content_name: str, episodes_watched: int)-> None:
+    '''
+    This function takes in the content_name (str) and episodes_watched (int) and updates the episodes watched in the database
+    
+    :param content_name: Description
+    :type content_name: str
+    :param episodes_watched Description
+    :type episodes_watched: int
+    '''
+    conn = get_database()
+    df = fetch_database()
+    df = df[df['title'] == content_name]
+    if df.empty:
+        print("Please enter a valid content_name")
