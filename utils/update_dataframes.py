@@ -60,7 +60,7 @@ def update_content_episode_watched(content_name: str, episodes_watched: int)-> N
     else:
         # Add a check to see if the show has episodes_watched < total_episodes
         query = ''
-        watched, total = get_episodes_watched(), get_total_episodes()
+        watched, total = get_episodes_watched(content_name), get_total_episodes(content_name)
         new_episodes = watched + episodes_watched
         if new_episodes < total:
             query = """
