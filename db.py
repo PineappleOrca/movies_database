@@ -41,6 +41,8 @@ def create_table()->None:
 def add_movie(title: str, content_type: str, genre: str) -> None:
     conn = sqlite3.connect(DB_NAME)
     cursor = conn.cursor()
+    # Clean the title of trailing and leading white spaces
+    title = title.strip()
     
     # Check if movie already exists
     cursor.execute("SELECT times_watched FROM movies WHERE title = ?", (title,))
