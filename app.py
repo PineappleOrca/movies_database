@@ -31,10 +31,11 @@ st.dataframe(df)
 #Update the currently watching episodes 
 st.title("Update Series Episode Count")
 title = st.text_input("Series Name")
-episodes = st.text_input("Episodes Watched in session")
+episodes = st.number_input("Episodes Watched in session", step=1)
 if st.button("Submit"):
     if title.strip() == "":
         st.error("⚠️ Title cannot be empty!") # catch and log error? 
     else:
+        print(type(episodes))
         update_content_episode_watched(title, episodes)
         st.success(f"Movie '{title}' updated successfully!")
