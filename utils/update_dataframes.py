@@ -44,7 +44,7 @@ def update_content_watch_status(content_name: str, watch_status: str)-> None:
 def update_content_episode_watched(content_name: str, episodes_watched: int) -> None:
     conn = get_database() # Assuming this connects to the SQLite DB
     cursor = conn.cursor()
-
+    content_name = content_name.strip()
     # 2. Get the current episodes watched and total episodes in ONE query
     select_query = """
     SELECT episodes_watched, total_episodes, watch_status
