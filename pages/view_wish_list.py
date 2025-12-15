@@ -16,5 +16,5 @@ else:
     if genre_filter != "All":
         df = df[df["genre"] == genre_filter]
 
-    st.dataframe(df[["title", "content_type", "genre"]])
+    st.dataframe(df[["title", "content_type", "genre", "watch_status"]])
     
