@@ -35,8 +35,8 @@
 
 ## 🛠️ Planned Features
 
-- [ ] **Row Cleanup Tool** – delete or fix invalid entries, delete duplicate entries e.g. "Shrek 2" vs "Shrek 2 " 
-- [ ] **Wish List Clean up - delete records from the wish list once in the watching database
+- [ ] **Row Cleanup Tool** – delete or fix invalid entries, delete duplicate entries e.g. "Shrek 2" vs "Shrek 2 " (DONE)
+- [ ] **Wish List Clean up - delete records from the wish list once in the watching database (DONE)
 - [ ] **Date Watched Field** – record when a title was completed  
 - [ ] **Unified Entry Page** – toggle between `Watched` and `Want to Watch`  (DONE)
 - [ ] **Episodes/Seasons Support** – track anime episodes and series seasons (DONE)
