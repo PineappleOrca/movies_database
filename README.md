@@ -33,24 +33,32 @@
 - ** Unified database and added fields to distinguish between watch_status **
 - ✅ *Implemented on 14/12/2025*
 
+- ** Episode Tracker for Series **
+- ✅ *Implemented on 15/12/2025*
+
 ## 🛠️ Planned Features
 
-- [ ] **Row Cleanup Tool** – delete or fix invalid entries, delete duplicate entries e.g. "Shrek 2" vs "Shrek 2 " (DONE)
-- [ ] **Wish List Clean up - delete records from the wish list once in the watching database (DONE)
 - [ ] **Date Watched Field** – record when a title was completed  
-- [ ] **Unified Entry Page** – toggle between `Watched` and `Want to Watch`  (DONE)
-- [ ] **Episodes/Seasons Support** – track anime episodes and series seasons (DONE)
+- [ ] **Function to move items from wish list to currently watching** 
+- [ ] **Improve Series update functionality to give a drop down menu of shows currently watching to prevent input errors** 
+- [ ] **Function to Update total episodes and episodes watched for series**
+- [ ] **Function to delete items from wish list, only if watch_status == 'Want to Watch'** 
+- [ ] **GUI button to refresh datasources to update datasource displays**
+- [ ] **Add stats for frequency of most watched movie, maybe top 3 or something as well**
+- [ ] **Total Episodes of Series watched or anime only** 
+- [ ] **Button to trigger database back up? or maybe cron job to back up database**
+- [ ] **Code Health + Code Refactor once functionality is added**
+
+
+%%%%%%%%%%%%%%%%%%%
+Front End Work In React JS
 - [ ] **Backend APIs in Python 3.x to serve an eventual React Front End
 - [ ] **React Front End
-- [ ] **Database Clean Up and Migration (merging movies.db and wish_list.db into one) (DONE)
-- [ ] **Database Back up (DONE)
-- [ ] Add a Currently Watching for active Series (DONE)
-- [ ] Add an Episode Count for Series (DONE)
 - [ ] Add Personal Page for my own watch list
 - [ ] **Maybe look at a proper front end in Typescript/React or something along those lines 
 
 ## 🧱 Tech Stack
 
 - **Frontend**: [Streamlit](https://streamlit.io/)
-- **Backend**: SQLite
+- **Backend**: Python + SQLite + Planned React Front End (Development in initial stages)
 - **Language**: Python 3.x
