@@ -48,6 +48,8 @@
 - [ ] **Total Episodes of Series watched or anime only** 
 - [ ] **Button to trigger database back up? or maybe cron job to back up database**
 - [ ] **Code Health + Code Refactor once functionality is added**
+- [ ] **Logging**
+- [ ] remove wish list page
 
 
 %%%%%%%%%%%%%%%%%%%
