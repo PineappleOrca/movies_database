@@ -38,7 +38,7 @@ def get_total_watched_episodes()->int:
     '''
     Docstring for get_total_watched_episodes
     
-    :return: Description
+    :return: returns the total count of all watched episodes for series.
     :rtype: int
     '''
     df = fetch_database()
@@ -48,6 +48,12 @@ def get_total_watched_episodes()->int:
     return df['total'].sum()
 
 def get_most_watched_movie_count()->int:
+    '''
+    Docstring for get_most_watched_movie_count
+    
+    :return: Returns the times_watched for the most_watched movie 
+    :rtype: int
+    '''
     df = fetch_database()
     most_watched_movie = get_most_watched_movie()
     df = df[df['title'] == most_watched_movie]
