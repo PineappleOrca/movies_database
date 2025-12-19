@@ -70,4 +70,22 @@ def get_currently_watching()->pd.DataFrame:
     df = read_database()
     return df[df["watch_status"] == "Currently Watching"]
 
+def get_database():
+    DB_FOLDER = "database"
+    DB_NAME = os.path.join(DB_FOLDER, "movies.db")
+    return sqlite3.connect(DB_NAME)    
+
+def fetch_database()->pd.DataFrame:
+    """
+    Docstring for read_database
+    :params: None
+    :return: This is a general function which we can use to read in the entire movies database
+    :rtype: pandas DataFrame
+    """
+    conn = get_database()
+    query = """
+    SELECT * FROM MOVIES;
+    """
+    return pd.read_sql_query(query, conn)
+
 

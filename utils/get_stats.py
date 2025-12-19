@@ -1,6 +1,7 @@
 import pandas as pd 
 import os
 import sqlite3
+from .get_dataframes import fetch_database
 # This is a repository of helper functions for statistics to be displayed
 
 # Global variables to locate the databases
@@ -31,3 +32,11 @@ def get_most_watched_movie()->str:
     if not df.empty:
         last_title = df.iloc[0]['title']
     return last_title
+
+def get_total_watched_episodes()->int:
+    '''
+    Docstring for get_total_watched_episodes
+    
+    :return: Description
+    :rtype: int
+    '''
