@@ -23,6 +23,7 @@ def get_most_watched_movie()->str:
     query = """
     SELECT title
     FROM movies
+    WHERE content_type = 'Movie'
     ORDER BY times_watched DESC
     LIMIT 1;
     """
@@ -45,3 +46,9 @@ def get_total_watched_episodes()->int:
     df = df[(df['watch_status'] == 'Currently Watching') | (df['watch_status'] == 'Watched') | (df['watch_status'] == 'Dropped')]
     df['total'] = df['times_watched']*df['episodes_watched']
     return df['total'].sum()
+
+def get_most_watched_movie_count()->int:
+    df = fetch_database()
+    most_watched_movie = get_most_watched_movie()
+    df = df[df['title'] == most_watched_movie]
+    return df['times_watched'].iloc[0]
