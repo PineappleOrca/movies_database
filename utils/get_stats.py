@@ -40,3 +40,8 @@ def get_total_watched_episodes()->int:
     :return: Description
     :rtype: int
     '''
+    df = fetch_database()
+    df = df[df['content_type'] == 'Series']
+    df = df[(df['watch_status'] == 'Currently Watching') | (df['watch_status'] == 'Watched') | (df['watch_status'] == 'Dropped')]
+    df['total'] = df['times_watched']*df['episodes_watched']
+    return df['total'].sum()
