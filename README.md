@@ -65,5 +65,5 @@ Front End Work In React JS
 ## 🧱 Tech Stack
 
 - **Frontend**: [Streamlit](https://streamlit.io/)
-- **Backend**: Python + SQLite + Planned React Front End (Development in initial stages)
+- **Backend**: Python + SQLite + Planned React Front End (Development in initial stages on local not on git yet)
 - **Language**: Python 3.x
