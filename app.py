@@ -1,6 +1,6 @@
 import streamlit as st
 from db import create_table, create_wish_list_table, get_last_movie, get_last_watched_series
-from utils.get_stats import get_most_watched_movie
+from utils.get_stats import get_most_watched_movie, get_total_watched_episodes
 from utils.get_dataframes import get_currently_watching
 from utils.update_dataframes import update_content_episode_watched
 
@@ -14,6 +14,7 @@ st.set_page_config(page_title="Movie Tracker", layout="wide")
 last_movie_watched = get_last_movie()
 most_watched_movie = get_most_watched_movie()
 last_series_watched = get_last_watched_series()
+total_episodes_watched = get_total_watched_episodes()
 df = get_currently_watching()
 
 # Main streamlit print to screen code
@@ -23,6 +24,7 @@ st.markdown("Track what youâ€™ve watched and what you plan to watch together ðŸ’
 st.write(f"Last Movie Watched: {last_movie_watched}")
 st.write(f"Last Series Watched: {last_series_watched}")
 st.write(f"Most Frequently Watched Movie: {most_watched_movie}")
+st.write(f"Total Episodes Watched (All Series Anime + Other): {total_episodes_watched}")
 
 # Display the dataframe for series in progress
 st.title("Currently Watching")
