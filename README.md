@@ -49,6 +49,9 @@
 - [ ] **Button to trigger database back up? or maybe cron job to back up database**
 - [ ] **Code Health + Code Refactor once functionality is added**
 - [ ] **Logging**
+- [ ] **Restore from back up function** 
+- [ ] **Back up Redundancy**
+- [ ] **Add to Wish List Function on main add movie page**
 - [ ] remove wish list page
 
 
