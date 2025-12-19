@@ -36,6 +36,12 @@
 - ** Episode Tracker for Series **
 - ✅ *Implemented on 15/12/2025*
 
+- ** Total Episode Watched Display on landing page **
+- ✅ *Implemented on 19/12/2025*
+
+- ** Displayed the frequency most watched movie**
+- ✅ *Implemented on 19/12/2025*
+
 ## 🛠️ Planned Features
 
 - [ ] **Date Watched Field** – record when a title was completed  
@@ -44,23 +50,23 @@
 - [ ] **Function to Update total episodes and episodes watched for series**
 - [ ] **Function to delete items from wish list, only if watch_status == 'Want to Watch'** 
 - [ ] **GUI button to refresh datasources to update datasource displays**
-- [ ] **Add stats for frequency of most watched movie, maybe top 3 or something as well**
-- [ ] **Total Episodes of Series watched or anime only** 
 - [ ] **Button to trigger database back up? or maybe cron job to back up database**
 - [ ] **Code Health + Code Refactor once functionality is added**
 - [ ] **Logging**
 - [ ] **Restore from back up function** 
 - [ ] **Back up Redundancy**
 - [ ] **Add to Wish List Function on main add movie page**
-- [ ] remove wish list page
+- [ ] **Update the SQL for the database creation so that it works for a fresh run**
 
-
-%%%%%%%%%%%%%%%%%%%
 Front End Work In React JS
 - [ ] **Backend APIs in Python 3.x to serve an eventual React Front End
 - [ ] **React Front End
 - [ ] Add Personal Page for my own watch list
 - [ ] **Maybe look at a proper front end in Typescript/React or something along those lines 
+
+## 🛠️ Known Bugs
+- [ ] remove wish list page
+- [ ] Have to update the db.py functions to make sure it works on a fresh environment if the .db files arent there, schema drift
 
 ## 🧱 Tech Stack
 
