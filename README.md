@@ -57,6 +57,7 @@
 - [ ] **Back up Redundancy**
 - [ ] **Add to Wish List Function on main add movie page**
 - [ ] **Update the SQL for the database creation so that it works for a fresh run**
+- [ ] **Update the stats functions to work for empty or sparse datasets, handling a fresh start situation**
 
 Front End Work In React JS
 - [ ] **Backend APIs in Python 3.x to serve an eventual React Front End
