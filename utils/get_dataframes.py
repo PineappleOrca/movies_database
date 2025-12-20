@@ -88,4 +88,18 @@ def fetch_database()->pd.DataFrame:
     """
     return pd.read_sql_query(query, conn)
 
+def get_wish_list()->pd.DataFrame:
+    """
+    Docstring for fetch_wish_list
+    
+    :return: This function returns the wish list database
+    :rtype: pandas DataFrame
+    """
+    conn = get_database()
+    query = """
+    SELECT * FROM movies
+    WHERE watch_status = 'Want To Watch'
+    """
+    return pd.read_sql_query(query, conn)
+
 
