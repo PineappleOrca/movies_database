@@ -49,7 +49,6 @@
 
 - [ ] **Date Watched Field** – record when a title was completed  
 - [ ] **Function to move items from wish list to currently watching** 
-- [ ] **Improve Series update functionality to give a drop down menu of shows currently watching to prevent input errors** 
 - [ ] **Function to Update total episodes and episodes watched for series**
 - [ ] **Function to delete items from wish list, only if watch_status == 'Want to Watch'** 
 - [ ] **GUI button to refresh datasources to update datasource displays**
