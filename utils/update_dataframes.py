@@ -123,8 +123,25 @@ def update_insert_database()->None:
     """
     pass
 
-def move_wish_to_current()->None:
+def move_wish_to_current(content_name: str)->None:
     """
     Docstring for move_wish_to_current
     """
-    pass
+    print(content_name)
+    query = """
+    UPDATE movies 
+    SET watch_status = 'Currently Watching'
+    WHERE title = ? 
+    """
+    conn = get_database()
+    params = (content_name,)
+    try:
+        conn.execute(query, params)
+        conn.commit()
+        print(f"Successfully updated '{content_name}'. New status: Currently Watching!")
+    except sqlite3.Error as e:
+        print(f"An error has occurred: {e}")
+        conn.rollback() # Rollback changes if update fails
+    finally:
+        conn.close()
+    
