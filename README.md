@@ -42,6 +42,9 @@
 - ** Displayed the frequency most watched movie**
 - ✅ *Implemented on 19/12/2025*
 
+- ** Added Drop down menu for updating currently watched shows episodes **
+- ✅ *Implemented on 21/12/2025*
+
 ## 🛠️ Planned Features
 
 - [ ] **Date Watched Field** – record when a title was completed  
