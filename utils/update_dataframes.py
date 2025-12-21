@@ -112,3 +112,19 @@ def get_total_episodes(content_name: str)->int:
     if not series.empty:
         return int(series.item())
     return 0
+
+def update_insert_database()->None:
+    """
+    This function takes the input from the add_movie page and updates the database accordingly
+    This function should 
+    1) Add Watched Movies 
+    2) Add Movies to Wishlist 
+    3) For Series it should accept total episode and episode watched initial values or default to 1
+    """
+    pass
+
+def move_wish_to_current()->None:
+    """
+    Docstring for move_wish_to_current
+    """
+    pass
