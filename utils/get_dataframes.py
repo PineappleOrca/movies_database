@@ -102,4 +102,20 @@ def get_wish_list()->pd.DataFrame:
     """
     return pd.read_sql_query(query, conn)
 
+def get_update_list()->list:
+    """
+    Docstring for get_update_list
+    
+    :return: Description
+    :rtype: list
+    """
+    conn = get_database()
+    query = """
+    SELECT title
+    FROM movies 
+    WHERE watch_status = 'Currently Watching'
+    """
+    df = pd.read_sql_query(query, conn)
+    return df['title'].tolist()
+
 
