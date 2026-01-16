@@ -38,7 +38,7 @@ def create_table()->None:
 
 # Insert new movie
 # Add or update movie
-def add_movie(title: str, content_type: str, genre: str) -> None:
+def add_movie(title: str, content_type: str, genre: str, watch_options: str) -> None:
     conn = sqlite3.connect(DB_NAME)
     cursor = conn.cursor()
     # Clean the title of trailing and leading white spaces
@@ -53,8 +53,8 @@ def add_movie(title: str, content_type: str, genre: str) -> None:
         cursor.execute("UPDATE movies SET times_watched = ? WHERE title = ?", 
                        (times_watched, title))
     else:  # New movie, insert as fresh entry
-        cursor.execute("INSERT INTO movies (title, content_type, genre, times_watched) VALUES (?, ?, ?, ?)", 
-                       (title, content_type, genre, 1))
+        cursor.execute("INSERT INTO movies (title, content_type, genre, times_watched, watch_status) VALUES (?, ?, ?, ?, ?)", 
+                       (title, content_type, genre, 1, watch_options))
     
     conn.commit()
     conn.close()
