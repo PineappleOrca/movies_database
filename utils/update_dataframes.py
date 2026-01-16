@@ -130,7 +130,7 @@ def move_wish_to_current(content_name: str)->None:
     print(content_name)
     query = """
     UPDATE movies 
-    SET watch_status = 'Currently Watching'
+    SET watch_status = 'Currently Watching', times_watched = 1
     WHERE title = ? 
     """
     conn = get_database()
