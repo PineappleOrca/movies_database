@@ -112,3 +112,36 @@ def get_total_episodes(content_name: str)->int:
     if not series.empty:
         return int(series.item())
     return 0
+
+def update_insert_database()->None:
+    """
+    This function takes the input from the add_movie page and updates the database accordingly
+    This function should 
+    1) Add Watched Movies 
+    2) Add Movies to Wishlist 
+    3) For Series it should accept total episode and episode watched initial values or default to 1
+    """
+    pass
+
+def move_wish_to_current(content_name: str)->None:
+    """
+    Docstring for move_wish_to_current
+    """
+    print(content_name)
+    query = """
+    UPDATE movies 
+    SET watch_status = 'Currently Watching', times_watched = 1
+    WHERE title = ? 
+    """
+    conn = get_database()
+    params = (content_name,)
+    try:
+        conn.execute(query, params)
+        conn.commit()
+        print(f"Successfully updated '{content_name}'. New status: Currently Watching!")
+    except sqlite3.Error as e:
+        print(f"An error has occurred: {e}")
+        conn.rollback() # Rollback changes if update fails
+    finally:
+        conn.close()
+    

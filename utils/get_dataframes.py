@@ -118,4 +118,18 @@ def get_update_list()->list:
     df = pd.read_sql_query(query, conn)
     return df['title'].tolist()
 
-
+def get_want_watch_list()->list:
+    """
+    Docstring for get_currently_watch_list
+    
+    :return: Description
+    :rtype: list
+    """
+    conn = get_database()
+    query = """
+    SELECT title
+    FROM movies 
+    WHERE watch_status = 'Want To Watch'
+    """
+    df = pd.read_sql_query(query, conn)
+    return df['title'].tolist()

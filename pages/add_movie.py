@@ -5,6 +5,9 @@ st.title("Add a New Movie or Series or Book")
 
 title = st.text_input("Movie Title")
 type_of_content = st.radio("Type of Content", ["Movie", "Series", "Book"])
+watch_options = st.radio("Watch Status", ["Watched", "Currently Watching", "Want To Watch"])
+total_episodes = st.text_input("Total Number of Episodes")
+episodes_watched = st.text_input("Episodes Watched Already")
 if type_of_content == "Movie":
     genre_options = ["Horror", "Animation", "Other"] # could make this part of your .db or have a json file which reads in this information. Can demonstrate file parsing and allows you to construct the map. 
 elif type_of_content == "Series": # switch statement? 
@@ -19,5 +22,5 @@ if st.button("Submit"):
     if title.strip() == "":
         st.error("⚠️ Title cannot be empty!") # catch and log error? 
     else:
-        add_movie(title, type_of_content, genre)
-        st.success(f"Movie '{title}' added successfully!") 
+        add_movie(title, type_of_content, genre, watch_options, total_episodes, episodes_watched)
+        st.success(f"'{title}' has been added to the database successfully!") 
