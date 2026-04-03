@@ -63,48 +63,12 @@ def add_movie(title: str, content_type: str, genre: str, watch_options: str, tot
     conn.commit()
     conn.close()
 
-
 # Fetch movies
 def fetch_movies():
     conn = sqlite3.connect(DB_NAME)
     df = pd.read_sql_query("SELECT * FROM movies", conn)
     conn.close()
     return df
-
-
-# Get the last movie watched for Displaying on the main screen
-def get_last_movie()->str:
-    conn = sqlite3.connect(DB_NAME)
-    query = """
-    SELECT title
-    FROM movies
-    WHERE content_type = 'Movie'
-    ORDER BY id DESC
-    LIMIT 1;
-    """
-    df = pd.read_sql_query(query, conn)
-    conn.close()
-    last_title = ""
-    if not df.empty:
-        last_title = df.iloc[0]['title']
-    return last_title
-
-#Get the last watched series 
-def get_last_watched_series()->str:
-    conn = sqlite3.connect(DB_NAME)
-    query = """
-    SELECT title
-    FROM movies
-    WHERE content_type = 'Series'
-    ORDER BY id DESC
-    LIMIT 1;
-    """
-    df = pd.read_sql_query(query, conn)
-    conn.close()
-    last_title = ""
-    if not df.empty:
-        last_title = df.iloc[0]['title']
-    return last_title
 
 #Get the Series currently in Progress 
 def get_last_watched(flag: str) -> str:
