@@ -107,3 +107,21 @@ def get_last_watched_series()->str:
     return last_title
 
 #Get the Series currently in Progress 
+def get_last_watched(flag: str) -> str:
+    """
+    Docstring for get_last_watched
+    
+    :param flag: Description
+    :type flag: str
+    :return: Description
+    :rtype: str
+    """
+    try:
+        with sqlite3.connect(DB_NAME) as conn:
+            query = "SELECT title FROM movies WHERE content_type = ? ORDER BY id DESC LIMIT 1"
+            df = pd.read_sql_query(query, conn, params=(flag,))
+            return df.iloc[0]['title'] if not df.empty else ""
+    except Exception as e:
+        print(e)
+        return ""
+            
