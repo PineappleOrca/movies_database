@@ -127,20 +127,42 @@ def move_wish_to_current(content_name: str)->None:
     """
     Docstring for move_wish_to_current
     """
-    print(content_name)
-    query = """
-    UPDATE movies 
-    SET watch_status = 'Currently Watching', times_watched = 1
-    WHERE title = ? 
-    """
+    content_type = get_content_type(content_name)
+    print(content_type[0])
+    query = ""
+    status = ''
+    if content_type[0] == "Series":
+        query = """
+        UPDATE movies 
+        SET watch_status = 'Currently Watching', times_watched = 1
+        WHERE title = ? 
+        """
+        status = 'Currently Watching'
+    else:
+        query = """
+        UPDATE movies 
+        SET watch_status = 'Watched', times_watched = 1
+        WHERE title = ? 
+        """ 
+        status = 'Watched'
     conn = get_database()
     params = (content_name,)
     try:
         conn.execute(query, params)
         conn.commit()
-        print(f"Successfully updated '{content_name}'. New status: Currently Watching!")
+        print(f"Successfully updated '{content_name}'. New status: {status}!")
     except sqlite3.Error as e:
         print(f"An error has occurred: {e}")
         conn.rollback() # Rollback changes if update fails
     finally:
         conn.close()
+
+def get_content_type(movie_name: str)->None:
+    """
+    :returns: contents type as a string
+    :rtype: str
+    """
+    conn = get_database()
+    query = "SELECT content_type FROM movies WHERE title = ?"
+    df = pd.read_sql_query(query, conn, params=(movie_name,))
+    return df['content_type'].tolist()
