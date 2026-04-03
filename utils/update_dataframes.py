@@ -144,4 +144,3 @@ def move_wish_to_current(content_name: str)->None:
         conn.rollback() # Rollback changes if update fails
     finally:
         conn.close()
-    
