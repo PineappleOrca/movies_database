@@ -30,7 +30,10 @@ def create_table()->None:
             title TEXT,
             content_type TEXT,
             genre TEXT,
-            times_watched INTEGER DEFAULT 1
+            times_watched INTEGER DEFAULT 1,
+            watch_status TEXT,
+            total_episodes INTEGER DEFAULT 1,
+            episodes_watched INTEGER DEFAULT 1
         )
     ''')
     conn.commit()
