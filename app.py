@@ -50,6 +50,5 @@ st.dataframe(wish_list_df)
 
 wish_title = st.selectbox("Series Name", wish_list)
 if st.button("Update"):
-    print(wish_title)
     move_wish_to_current(wish_title)
     print(f"You have started watching {wish_title}!! Status updated to Currently Watching")
