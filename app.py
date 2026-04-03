@@ -1,5 +1,5 @@
 import streamlit as st
-from db import get_last_movie, get_last_watched_series, get_last_watched
+from db import get_last_watched
 from utils.get_stats import get_most_watched_movie, get_total_watched_episodes, get_most_watched_movie_count
 from utils.get_dataframes import get_currently_watching, get_wish_list, get_update_list, get_want_watch_list
 from utils.update_dataframes import update_content_episode_watched, move_wish_to_current
