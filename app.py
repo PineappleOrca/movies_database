@@ -6,14 +6,10 @@ from utils.update_dataframes import update_content_episode_watched, move_wish_to
 
 st.set_page_config(page_title="Movie Tracker", layout="wide")
 
-# Not sure these are required anymore since hte databases for these tables are already created 
-#create_table() 
-#create_wish_list_table()
-
 # Storing some data in Variables which will print on the main screen
-last_movie_watched = get_last_watched("Movie") #get_last_movie()
+last_movie_watched = get_last_watched("Movie")
 most_watched_movie = get_most_watched_movie()
-last_series_watched = get_last_watched("Series") #get_last_watched_series()
+last_series_watched = get_last_watched("Series") 
 total_episodes_watched = get_total_watched_episodes()
 most_watched_movie_count = get_most_watched_movie_count()
 df = get_currently_watching()
