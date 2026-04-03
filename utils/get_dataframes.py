@@ -133,3 +133,26 @@ def get_want_watch_list()->list:
     """
     df = pd.read_sql_query(query, conn)
     return df['title'].tolist()
+
+def get_watch_status_list(flag: str)->list:
+    """
+    Docstring for get_list
+    This function returns the dataframe in list for the flag, e.g for "want to watch" or "currently watching"
+    :return: 
+    :rtype: list
+    """
+    conn = get_database()
+    query = """SELECT title FROM movies WHERE watch_status = ?"""
+    df = pd.read_sql_query(query, conn, params=(flag,))
+    return df['title'].tolist()
+
+def get_watch_status_df(flag:str)->pd.DataFrame:
+    """
+    Docstring for get_list
+    This function returns the dataframe in list for the flag, e.g for "want to watch" or "currently watching"
+    :return: 
+    :rtype: pandas DataFrame
+    """
+    conn = get_database()
+    query = """SELECT title FROM movies WHERE watch_status = ?"""
+    return pd.read_sql_query(query, conn, params=(flag,))

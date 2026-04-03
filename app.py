@@ -1,7 +1,7 @@
 import streamlit as st
 from db import get_last_watched
 from utils.get_stats import get_most_watched_movie, get_total_watched_episodes, get_most_watched_movie_count
-from utils.get_dataframes import get_currently_watching, get_wish_list, get_update_list, get_want_watch_list
+from utils.get_dataframes import get_currently_watching, get_watch_status_list, get_watch_status_df
 from utils.update_dataframes import update_content_episode_watched, move_wish_to_current
 
 st.set_page_config(page_title="Movie Tracker", layout="wide")
@@ -17,9 +17,10 @@ last_series_watched = get_last_watched("Series") #get_last_watched_series()
 total_episodes_watched = get_total_watched_episodes()
 most_watched_movie_count = get_most_watched_movie_count()
 df = get_currently_watching()
-wish_list_df = get_wish_list()
-update_list = get_update_list()
-wish_list = get_want_watch_list()
+wish_list_df = get_watch_status_df('Want To Watch')
+update_list = get_watch_status_list('Currently Watching')
+wish_list = get_watch_status_list('Want To Watch')
+
 
 # Main streamlit print to screen code
 st.title("🎬📚 Movies, Series, Anime & Books Tracker")
