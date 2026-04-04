@@ -22,6 +22,9 @@ def read_database()->pd.DataFrame:
 def get_content_df(df: pd.DataFrame, flag:str)->pd.DataFrame:
     return df[(df['content_type']) == flag]
 
+def get_content_genre_df(df: pd.DataFrame, content_type: str, genre: str)-> pd.DataFrame:
+    return df[(df['content_type'] == content_type) & (df['genre'] == genre)]
+
 def get_movie_genre_df(df: pd.DataFrame, flag: str)->pd.core.frame.DataFrame:
     # need to add a check to make sure the correct pandas df is being sent to this function
    # if df['content_type'] != 'Movie':

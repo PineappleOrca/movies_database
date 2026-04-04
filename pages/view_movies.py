@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 from db import fetch_movies
 from utils.get_stats import get_sum
-from utils.get_dataframes import get_content_df, get_movie_genre_df, get_series_genre_df, get_book_genre_df
+from utils.get_dataframes import get_content_df, get_movie_genre_df, get_series_genre_df, get_book_genre_df, get_content_genre_df
 from utils.classes import WatchStatus, ContentType, MovieGenre, BookGenre, SeriesGenre
 
 st.title("Content Finished List")
@@ -35,18 +35,17 @@ else:
     # Getting the individual breakdowns e.g. num horror movies watched
     ######################################################################
     # Movies
-    #horror_movies = df[(df['content_type'] == 'Movie') & (df['genre'] == 'Horror')]
-    horror_movies = get_movie_genre_df(movies, 'Horror')
-    animated_movies = get_movie_genre_df(movies, 'Animated')
-    other_movies = get_movie_genre_df(movies, 'Other')
+    horror_movies = get_content_genre_df(df, ContentType.MOVIE.value, MovieGenre.HORROR.value)
+    animated_movies = get_content_genre_df(df, ContentType.MOVIE.value, MovieGenre.ANIMATION.value)
+    other_movies = get_content_genre_df(df, ContentType.MOVIE.value, MovieGenre.OTHER.value)
     # Series
-    anime_series = get_series_genre_df(series, 'Anime')
-    other_series = get_series_genre_df(series, 'Other')
+    anime_series = get_content_genre_df(df, ContentType.SERIES.value, SeriesGenre.ANIME.value)
+    other_series = get_content_genre_df(df, ContentType.SERIES.value, SeriesGenre.OTHER.value)
     # Books
-    thriller_books = get_book_genre_df(books, 'Thriller')
-    mystery_books = get_book_genre_df(books, 'Mystery')
+    thriller_books = get_content_genre_df(df, ContentType.BOOK.value, BookGenre.THRILLER.value)
+    mystery_books = get_content_genre_df(df, ContentType.BOOK.value, BookGenre.MYSTERY.value)
+    romance_books = get_content_genre_df(df, ContentType.BOOK.value, BookGenre.ROMANCE.value)
     
-    #romance_books = df[(df['content_type'] == 'Books') & (df['genre'] == 'Romance')]
     ######################################################################
     # Getting the numbers of the different types of content
     ######################################################################
@@ -61,12 +60,13 @@ else:
     # Books
     num_thriller = get_sum(thriller_books)
     num_mystery = get_sum(mystery_books)
+    num_romance = get_sum(romance_books)
  
     ######################################################################
     # Printing the Values on Screen
     ######################################################################
     st.metric("Total Movies:", num_movies)
-    st.metric("Total Horror Movies:", num_horror) # loop over results and add "Total $genre Movies:
+    st.metric("Total Horror Movies:", num_horror) 
     st.metric("Total Animated Movies:", num_animated) 
     st.metric("Total Other Movies:", num_other)
 
@@ -78,4 +78,5 @@ else:
     st.metric("Total Books:", num_books)
     st.metric("Total Thrillers:", num_thriller)
     st.metric("Total Mystery: ", num_mystery)
+    st.metric("Total Romance: ", num_romance)
 
