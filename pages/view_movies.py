@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 from db import fetch_movies
 from utils.get_stats import get_sum
-from utils.get_dataframes import get_content_df, get_movie_genre_df, get_series_genre_df, get_book_genre_df, get_content_genre_df
+from utils.get_dataframes import get_content_df, get_content_genre_df
 from utils.classes import WatchStatus, ContentType, MovieGenre, BookGenre, SeriesGenre
 
 st.title("Content Finished List")
