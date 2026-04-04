@@ -45,10 +45,14 @@
 - ** Added Drop down menu for updating currently watched shows episodes **
 - ✅ *Implemented on 21/12/2025*
 
+- ** Function to move items from wish list to currently watching **
+- ** Code Refactor Partially done **
+- ** Wish list add from add movies page ** 
+- ✅ *Implemented on or before 04/04/2026*
+
 ## 🛠️ Planned Features
 
 - [ ] **Date Watched Field** – record when a title was completed  
-- [ ] **Function to move items from wish list to currently watching** 
 - [ ] **Function to Update total episodes and episodes watched for series**
 - [ ] **Function to delete items from wish list, only if watch_status == 'Want to Watch'** 
 - [ ] **GUI button to refresh datasources to update datasource displays**
@@ -57,7 +61,6 @@
 - [ ] **Logging**
 - [ ] **Restore from back up function** 
 - [ ] **Back up Redundancy**
-- [ ] **Add to Wish List Function on main add movie page**
 - [ ] **Update the SQL for the database creation so that it works for a fresh run**
 - [ ] **Update the stats functions to work for empty or sparse datasets, handling a fresh start situation**
 

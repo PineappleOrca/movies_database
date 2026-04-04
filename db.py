@@ -60,7 +60,7 @@ def add_movie(title: str, content_type: str, genre: str, watch_options: str, tot
                 if content_type in (ContentType.MOVIE.value, ContentType.BOOK.value):
                     total_episodes = 1
                     episodes_watched = 1
-                    cursor.execute("INSERT INTO movies (title, content_type, genre, times_watched, watch_status, episodes_watched, total_episodes) VALUES (?, ?, ?, ?, ?, ?, ?)", 
+                cursor.execute("INSERT INTO movies (title, content_type, genre, times_watched, watch_status, episodes_watched, total_episodes) VALUES (?, ?, ?, ?, ?, ?, ?)", 
                             (title, content_type, genre, 1, watch_options, episodes_watched, total_episodes))
             conn.commit()
     except Exception as e:
@@ -82,13 +82,13 @@ def fetch_movies()-> pd.DataFrame:
             return df
     except sqlite3.DatabaseError as e:
         print(f"Database error: {e}")
-        return pd.DataFrame
+        return pd.DataFrame()
     except sqlite3.OperationalError as e:
         print(f"Database Error (table missing!): {e}")
-        return pd.DataFrame
+        return pd.DataFrame()
     except Exception as e:
         print(f"Unexpected Error as {e}")
-        return pd.DataFrame
+        return pd.DataFrame()
 
 #Get the Series currently in Progress 
 def get_last_watched(flag: str) -> str:
