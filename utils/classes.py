@@ -18,3 +18,8 @@ class BookGenre(Enum):
     THRILLER = 'Thriller'
     ROMANCE = 'Romance'
     MYSTERY = 'Mystery'
+
+class WatchStatus(Enum):
+    CURRENT = 'Currently Watching'
+    WATCHED = 'Watched'
+    WISH = 'Want To Watch'
