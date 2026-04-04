@@ -47,7 +47,9 @@
 
 - ** Function to move items from wish list to currently watching **
 - ** Code Refactor Partially done **
-- ** Wish list add from add movies page ** 
+- ** Wish list add from add movies page **
+- ** removed the wish list page (BUG) **
+- ** updated the db.py functions (BUG) **
 - ✅ *Implemented on or before 04/04/2026*
 
 ## 🛠️ Planned Features
@@ -63,6 +65,7 @@
 - [ ] **Back up Redundancy**
 - [ ] **Update the SQL for the database creation so that it works for a fresh run**
 - [ ] **Update the stats functions to work for empty or sparse datasets, handling a fresh start situation**
+- [ ] ** Write Unit tests! ** 
 
 Front End Work In React JS
 - [ ] **Backend APIs in Python 3.x to serve an eventual React Front End
@@ -71,8 +74,7 @@ Front End Work In React JS
 - [ ] **Maybe look at a proper front end in Typescript/React or something along those lines 
 
 ## 🛠️ Known Bugs
-- [ ] remove wish list page
-- [ ] Have to update the db.py functions to make sure it works on a fresh environment if the .db files arent there, schema drift
+- [ ] I'm sure there are some I haven't fully tested them! 
 
 ## 🧱 Tech Stack
 
