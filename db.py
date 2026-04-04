@@ -1,6 +1,7 @@
 import sqlite3
 import pandas as pd
-import os 
+import os
+from utils.classes import ContentType
 
 # Adding in functionality using the os module for cross platform funcitonality
 # Root Database Folder
@@ -40,28 +41,30 @@ def create_table()->None:
 # Insert new movie
 # Add or update movie
 def add_movie(title: str, content_type: str, genre: str, watch_options: str, total_episodes: int, episodes_watched: int) -> None:
-    conn = sqlite3.connect(DB_NAME)
-    cursor = conn.cursor()
-    # Clean the title of trailing and leading white spaces
-    title = title.strip()
-    
-    # Check if movie already exists
-    cursor.execute("SELECT times_watched FROM movies WHERE title = ?", (title,))
-    result = cursor.fetchone()
-    
-    if result:  # Movie exists, update times_watched
-        times_watched = result[0] + 1
-        cursor.execute("UPDATE movies SET times_watched = ? WHERE title = ?", 
-                       (times_watched, title))
-    else:  # New movie, insert as fresh entry
-        if content_type == 'Movie' or content_type == 'Book':
-            total_episodes = 1
-            episodes_watched = 1
-        cursor.execute("INSERT INTO movies (title, content_type, genre, times_watched, watch_status, episodes_watched, total_episodes) VALUES (?, ?, ?, ?, ?, ?, ?)", 
-                       (title, content_type, genre, 1, watch_options, episodes_watched, total_episodes))
-    
-    conn.commit()
+    try:
+        conn = sqlite3.connect(DB_NAME)
+        cursor = conn.cursor()
+        # Clean the title of trailing and leading white spaces
+        title = title.strip()
+        
+        # Check if movie already exists
+        cursor.execute("SELECT times_watched FROM movies WHERE title = ?", (title,))
+        result = cursor.fetchone()
+        if result:  # Movie exists, update times_watched
+            times_watched = result[0] + 1
+            cursor.execute("UPDATE movies SET times_watched = ? WHERE title = ?", 
+                        (times_watched, title))
+        else:  # New movie, insert as fresh entry
+            if content_type == ContentType.MOVIE or content_type == ContentType.BOOK:
+                total_episodes = 1
+                episodes_watched = 1
+            cursor.execute("INSERT INTO movies (title, content_type, genre, times_watched, watch_status, episodes_watched, total_episodes) VALUES (?, ?, ?, ?, ?, ?, ?)", 
+                        (title, content_type, genre, 1, watch_options, episodes_watched, total_episodes))
+        conn.commit()
+    except Exception as e:
+        print(f"Error! Unable to add movie with error {e}")
     conn.close()
+    print(f"{title} of type {content_type} was successfully added to the database!")
 
 # Fetch movies
 def fetch_movies():
@@ -89,3 +92,5 @@ def get_last_watched(flag: str) -> str:
         print(e)
         return ""
             
+
+
