@@ -41,7 +41,7 @@ if st.button("Submit"):
     else:
         print(type(episodes))
         update_content_episode_watched(title, episodes)
-        st.success(f"Movie '{title}' updated successfully!")
+        st.success(f"Content '{title}' updated successfully!")
 
 
 # Display Items in wish list to suggest shows to watch if currently unsure what to watch
