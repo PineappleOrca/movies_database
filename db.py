@@ -22,28 +22,26 @@ def create_table()->None:
     :returns: None
     '''
     try:
-        conn = sqlite3.connect(DB_NAME)
-        cursor = conn.cursor()
-        cursor.execute('''
-            CREATE TABLE IF NOT EXISTS movies (
-                id INTEGER PRIMARY KEY AUTOINCREMENT,
-                title TEXT,
-                content_type TEXT,
-                genre TEXT,
-                times_watched INTEGER DEFAULT 1,
-                watch_status TEXT,
-                total_episodes INTEGER DEFAULT 1,
-                episodes_watched INTEGER DEFAULT 1
-            )
-        ''')
-        conn.commit()
+        with sqlite3.connect(DB_NAME) as conn:
+            cursor = conn.cursor()
+            cursor.execute('''
+                CREATE TABLE IF NOT EXISTS movies (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    title TEXT,
+                    content_type TEXT,
+                    genre TEXT,
+                    times_watched INTEGER DEFAULT 1,
+                    watch_status TEXT,
+                    total_episodes INTEGER DEFAULT 1,
+                    episodes_watched INTEGER DEFAULT 1
+                )
+            ''')
+            conn.commit()
     except Exception as e:
         print(f"Unexpected error found as {e}!")
-    finally:
-        if conn:
-            conn.close()
+    else:
+        print(f"Successfully created new movies.db file!")
 
-# Insert new movie
 # Add or update movie
 def add_movie(title: str, content_type: str, genre: str, watch_options: str, total_episodes: int, episodes_watched: int) -> None:
     try:
