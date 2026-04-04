@@ -21,22 +21,27 @@ def create_table()->None:
     :params: None 
     :returns: None
     '''
-    conn = sqlite3.connect(DB_NAME)
-    cursor = conn.cursor()
-    cursor.execute('''
-        CREATE TABLE IF NOT EXISTS movies (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            title TEXT,
-            content_type TEXT,
-            genre TEXT,
-            times_watched INTEGER DEFAULT 1,
-            watch_status TEXT,
-            total_episodes INTEGER DEFAULT 1,
-            episodes_watched INTEGER DEFAULT 1
-        )
-    ''')
-    conn.commit()
-    conn.close()
+    try:
+        conn = sqlite3.connect(DB_NAME)
+        cursor = conn.cursor()
+        cursor.execute('''
+            CREATE TABLE IF NOT EXISTS movies (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                title TEXT,
+                content_type TEXT,
+                genre TEXT,
+                times_watched INTEGER DEFAULT 1,
+                watch_status TEXT,
+                total_episodes INTEGER DEFAULT 1,
+                episodes_watched INTEGER DEFAULT 1
+            )
+        ''')
+        conn.commit()
+    except Exception as e:
+        print(f"Unexpected error found as {e}!")
+    finally:
+        if conn:
+            conn.close()
 
 # Insert new movie
 # Add or update movie
@@ -46,7 +51,6 @@ def add_movie(title: str, content_type: ContentType, genre: str, watch_options: 
         cursor = conn.cursor()
         # Clean the title of trailing and leading white spaces
         title = title.strip()
-        
         # Check if movie already exists
         cursor.execute("SELECT times_watched FROM movies WHERE title = ?", (title,))
         result = cursor.fetchone()
@@ -69,11 +73,26 @@ def add_movie(title: str, content_type: ContentType, genre: str, watch_options: 
             conn.close()
 
 # Fetch movies
-def fetch_movies():
-    conn = sqlite3.connect(DB_NAME)
-    df = pd.read_sql_query("SELECT * FROM movies", conn)
-    conn.close()
-    return df
+def fetch_movies()-> pd.DataFrame:
+    """
+    This function takes in no input and returns a pandas Dataframe with the content database
+    :inputs: None
+    :returns: content database 
+    :rtype: Pandas DataFrame
+    """
+    try:
+        with sqlite3.connect(DB_NAME) as conn:
+            df = pd.read_sql_query("SELECT * FROM movies", conn)
+            return df
+    except sqlite3.DatabaseError as e:
+        print(f"Database error: {e}")
+        return pd.DataFrame
+    except sqlite3.OperationalError as e:
+        print(f"Database Error (table missing!): {e}")
+        return pd.DataFrame
+    except Exception as e:
+        print(f"Unexpected Error as {e}")
+        return pd.DataFrame
 
 #Get the Series currently in Progress 
 def get_last_watched(flag: str) -> str:
