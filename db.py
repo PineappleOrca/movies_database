@@ -45,7 +45,7 @@ def create_table()->None:
 
 # Insert new movie
 # Add or update movie
-def add_movie(title: str, content_type: ContentType, genre: str, watch_options: str, total_episodes: int, episodes_watched: int) -> None:
+def add_movie(title: str, content_type: str, genre: str, watch_options: str, total_episodes: int, episodes_watched: int) -> None:
     try:
         conn = sqlite3.connect(DB_NAME)
         cursor = conn.cursor()
