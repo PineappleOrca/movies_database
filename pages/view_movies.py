@@ -3,11 +3,12 @@ import pandas as pd
 from db import fetch_movies
 from utils.get_stats import get_sum
 from utils.get_dataframes import get_content_df, get_movie_genre_df, get_series_genre_df, get_book_genre_df
+from utils.classes import WatchStatus, ContentType, MovieGenre, BookGenre, SeriesGenre
 
-st.title("Our Content List")
+st.title("Content Finished List")
 
 df = fetch_movies()
-df = df[df["watch_status"] == "Watched"]
+df = df[df["watch_status"] == WatchStatus.WATCHED.value]
 
 if df.empty:
     st.warning("No movies logged yet.")
@@ -21,9 +22,9 @@ else:
     st.subheader("Totals")
     
     # Filtering out by types of content, Movies/Series/Books
-    movies = get_content_df(df, 'Movies')
-    series = get_content_df(df, 'Series')
-    books = get_content_df(df, 'Book')
+    movies = get_content_df(df, ContentType.MOVIE.value)
+    series = get_content_df(df, ContentType.SERIES.value)
+    books = get_content_df(df, ContentType.BOOK.value)
 
     # Getting the totals of Moves/Series/Books
     num_movies = get_sum(movies)
