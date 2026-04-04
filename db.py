@@ -40,7 +40,7 @@ def create_table()->None:
 
 # Insert new movie
 # Add or update movie
-def add_movie(title: str, content_type: str, genre: str, watch_options: str, total_episodes: int, episodes_watched: int) -> None:
+def add_movie(title: str, content_type: ContentType, genre: str, watch_options: str, total_episodes: int, episodes_watched: int) -> None:
     try:
         conn = sqlite3.connect(DB_NAME)
         cursor = conn.cursor()
@@ -55,16 +55,18 @@ def add_movie(title: str, content_type: str, genre: str, watch_options: str, tot
             cursor.execute("UPDATE movies SET times_watched = ? WHERE title = ?", 
                         (times_watched, title))
         else:  # New movie, insert as fresh entry
-            if content_type == ContentType.MOVIE or content_type == ContentType.BOOK:
+            if content_type in (ContentType.MOVIE.value, ContentType.BOOK.value):
                 total_episodes = 1
                 episodes_watched = 1
-            cursor.execute("INSERT INTO movies (title, content_type, genre, times_watched, watch_status, episodes_watched, total_episodes) VALUES (?, ?, ?, ?, ?, ?, ?)", 
+                cursor.execute("INSERT INTO movies (title, content_type, genre, times_watched, watch_status, episodes_watched, total_episodes) VALUES (?, ?, ?, ?, ?, ?, ?)", 
                         (title, content_type, genre, 1, watch_options, episodes_watched, total_episodes))
         conn.commit()
+        print(f"{title} of type {content_type} was successfully added to the database!")
     except Exception as e:
         print(f"Error! Unable to add movie with error {e}")
-    conn.close()
-    print(f"{title} of type {content_type} was successfully added to the database!")
+    finally:
+        if conn:
+            conn.close()
 
 # Fetch movies
 def fetch_movies():
