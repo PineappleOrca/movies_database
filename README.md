@@ -1,3 +1,8 @@
+## How To Run
+- Clone the Repo
+- using the terminal, navigate to the location you cloned the repo to
+- run the command "streamlit run app.py" this should open a browser tab and open the landing page
+
 ## 🚀 Features
 
 ### ✅ Current Functionality
