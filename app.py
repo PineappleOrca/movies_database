@@ -4,6 +4,7 @@ from utils.get_stats import get_most_watched_movie, get_total_watched_episodes, 
 from utils.get_dataframes import get_currently_watching, get_watch_status_list, get_watch_status_df
 from utils.update_dataframes import update_content_episode_watched, move_wish_to_current, edit_wish_list
 import logging
+import config.logging_config
 
 # Page and logging config
 logger = logging.getLogger(__name__)
