@@ -166,3 +166,27 @@ def get_content_type(movie_name: str)->None:
     query = "SELECT content_type FROM movies WHERE title = ?"
     df = pd.read_sql_query(query, conn, params=(movie_name,))
     return df['content_type'].tolist()
+
+def edit_wish_list(content_name: str, action: str) -> None:
+    '''
+    :params: content_name, name of the title to be removed from the wish list, action to be performed ont he content_title
+    :returns: None
+    :rtype: None
+    '''
+    try:
+        conn = get_database()
+        cursor = conn.cursor()
+        query = '''DELETE FROM movies WHERE title = ? '''
+        cursor.execute(query, (content_name,))
+    except Exception as e:
+        print(f"Unexpected Error found: {e}")
+    else:
+        print(f"{content_name} has been removed from the database successfully!")
+
+def check_content_status(content_name: str) -> bool:
+    '''
+    :params: content_name (str)
+    :returns: returns a boolean value checking to see if the content type has status Want to Watch since we dont want to remove things otherwise.
+    :rtype: bool
+    '''
+    
