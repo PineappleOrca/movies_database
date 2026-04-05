@@ -3,7 +3,10 @@ from db import get_last_watched
 from utils.get_stats import get_most_watched_movie, get_total_watched_episodes, get_most_watched_movie_count
 from utils.get_dataframes import get_currently_watching, get_watch_status_list, get_watch_status_df
 from utils.update_dataframes import update_content_episode_watched, move_wish_to_current, edit_wish_list
+import logging
 
+# Page and logging config
+logger = logging.getLogget(__name__)
 st.set_page_config(page_title="Content Tracker", layout="wide")
 
 # Storing some data in Variables which will print on the main screen
@@ -38,10 +41,11 @@ episodes = st.number_input("Episodes Watched in session", step=1)
 if st.button("Submit"):
     if title.strip() == "":
         st.error("⚠️ Title cannot be empty!") # catch and log error? 
+        logger.info(f"⚠️ Title cannot be empty!")
     else:
-        print(type(episodes))
         update_content_episode_watched(title, episodes)
         st.success(f"Content '{title}' updated successfully!")
+        logger.info(f"Content '{title}' updated successfully!")
 
 
 # Display Items in wish list to suggest shows to watch if currently unsure what to watch
@@ -52,6 +56,8 @@ wish_title = st.selectbox("Series Name", wish_list)
 if st.button("Update"):
     move_wish_to_current(wish_title)
     st.success(f"Content: {wish_title} moved to Currently Watching!")
+    logger.info(f"Content: {wish_title} moved to Currently Watching!")
 if st.button("Delete"):
     edit_wish_list(wish_title)
     st.success(f"Content: {wish_title} removed from the wish list!")
+    logger.info(f"Content: {wish_title} removed from the wish list!")
