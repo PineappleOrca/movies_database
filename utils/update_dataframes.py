@@ -1,6 +1,7 @@
 import pandas as pd 
 import os 
-import sqlite3 
+import sqlite3
+from utils.classes import WatchStatus
 
 def get_database():
     DB_FOLDER = "database"
@@ -173,15 +174,18 @@ def edit_wish_list(content_name: str, action: str) -> None:
     :returns: None
     :rtype: None
     '''
-    try:
-        conn = get_database()
-        cursor = conn.cursor()
-        query = '''DELETE FROM movies WHERE title = ? '''
-        cursor.execute(query, (content_name,))
-    except Exception as e:
-        print(f"Unexpected Error found: {e}")
+    if check_content_status(content_name):
+        try:
+            conn = get_database()
+            cursor = conn.cursor()
+            query = '''DELETE FROM movies WHERE title = ? '''
+            cursor.execute(query, (content_name,))
+        except Exception as e:
+            print(f"Unexpected Error found: {e}")
+        else:
+            print(f"{content_name} has been removed from the database successfully!")
     else:
-        print(f"{content_name} has been removed from the database successfully!")
+        print("Please Enter a Title from the wish list!")
 
 def check_content_status(content_name: str) -> bool:
     '''
@@ -189,4 +193,14 @@ def check_content_status(content_name: str) -> bool:
     :returns: returns a boolean value checking to see if the content type has status Want to Watch since we dont want to remove things otherwise.
     :rtype: bool
     '''
+    try: 
+        conn = get_database()
+        query = "SELECT watch_status FROM movies WHERE title = ?"
+        df = pd.read_sql_query(query, conn, params=(content_name,))
+        if df['content_type'].tolist()[0] == WatchStatus.WISH.value:
+            return True
+    except Exception as e:
+        print(f"Unexpected Error occurred: {e}")
+    else:
+        return False
     
