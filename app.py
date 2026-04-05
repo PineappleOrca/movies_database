@@ -2,7 +2,7 @@ import streamlit as st
 from db import get_last_watched
 from utils.get_stats import get_most_watched_movie, get_total_watched_episodes, get_most_watched_movie_count
 from utils.get_dataframes import get_currently_watching, get_watch_status_list, get_watch_status_df
-from utils.update_dataframes import update_content_episode_watched, move_wish_to_current
+from utils.update_dataframes import update_content_episode_watched, move_wish_to_current, edit_wish_list
 
 st.set_page_config(page_title="Content Tracker", layout="wide")
 
@@ -51,3 +51,7 @@ st.dataframe(wish_list_df)
 wish_title = st.selectbox("Series Name", wish_list)
 if st.button("Update"):
     move_wish_to_current(wish_title)
+    st.success(f"Content: {wish_title} moved to Currently Watching!")
+if st.button("Delete"):
+    edit_wish_list(wish_title)
+    st.success(f"Content: {wish_title} removed from the wish list!")

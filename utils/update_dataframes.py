@@ -168,24 +168,24 @@ def get_content_type(movie_name: str)->None:
     df = pd.read_sql_query(query, conn, params=(movie_name,))
     return df['content_type'].tolist()
 
-def edit_wish_list(content_name: str, action: str) -> None:
+def edit_wish_list(content_name: str) -> None:
     '''
     :params: content_name, name of the title to be removed from the wish list, action to be performed ont he content_title
     :returns: None
     :rtype: None
     '''
-    if check_content_status(content_name):
-        try:
-            conn = get_database()
+    if not check_content_status(content_name):
+        print("Please pick a valid title from the wish list!")
+    try:
+        with get_database() as conn:
             cursor = conn.cursor()
-            query = '''DELETE FROM movies WHERE title = ? '''
+            query = '''DELETE FROM movies WHERE title = ?'''
             cursor.execute(query, (content_name,))
-        except Exception as e:
-            print(f"Unexpected Error found: {e}")
-        else:
-            print(f"{content_name} has been removed from the database successfully!")
+            conn.commit()
+    except Exception as e:
+        print(f"Unexpected Error found: {e}")
     else:
-        print("Please Enter a Title from the wish list!")
+        print(f"{content_name} has been removed from the database successfully!")
 
 def check_content_status(content_name: str) -> bool:
     '''
@@ -197,7 +197,7 @@ def check_content_status(content_name: str) -> bool:
         conn = get_database()
         query = "SELECT watch_status FROM movies WHERE title = ?"
         df = pd.read_sql_query(query, conn, params=(content_name,))
-        if df['content_type'].tolist()[0] == WatchStatus.WISH.value:
+        if df['watch_status'].tolist()[0] == WatchStatus.WISH.value:
             return True
     except Exception as e:
         print(f"Unexpected Error occurred: {e}")
