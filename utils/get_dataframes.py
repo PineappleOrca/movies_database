@@ -2,6 +2,10 @@ import pandas as pd
 import os
 import sqlite3 
 from utils.classes import ContentType, MovieGenre, SeriesGenre, BookGenre, WatchStatus
+import logging 
+
+# Initialise the logger
+logging = logging.getLogger(__name__)
 
 def read_database()->pd.DataFrame:
     """
@@ -15,9 +19,11 @@ def read_database()->pd.DataFrame:
     try:
         with sqlite3.connect(DB_NAME) as conn:
             query = """SELECT * FROM MOVIES;"""
-            return pd.read_sql_query(query, conn)
     except Exception as e:
-        print(f"Unexpected Error found: {e}!")
+        logging.info(f"Unexpected Error found: {e}!")
+    else:
+        logging.info("Fetched the database successfully from utils.get_dataframes.read_database!")
+        return pd.read_sql_query(query, conn)
 
 def get_content_df(df: pd.DataFrame, flag:str)->pd.DataFrame:
     return df[(df['content_type']) == flag]
@@ -33,7 +39,7 @@ def get_currently_watching()->pd.DataFrame:
     :rtype: pandas DataFrame
     '''
     df = read_database()
-    return df[df["watch_status"] == "Currently Watching"]
+    return df[df["watch_status"] == WatchStatus.CURRENT.value]
 
 def get_database():
     DB_FOLDER = "database"
