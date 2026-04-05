@@ -9,7 +9,7 @@ import config.logging_config
 # Page and logging config
 logger = logging.getLogger(__name__)
 st.set_page_config(page_title="Content Tracker", layout="wide")
-
+logger.info("Main Page Accessed")
 # Storing some data in Variables which will print on the main screen
 last_movie_watched = get_last_watched("Movie")
 most_watched_movie = get_most_watched_movie()
