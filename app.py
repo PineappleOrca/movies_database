@@ -3,6 +3,7 @@ from db import get_last_watched
 from utils.get_stats import get_most_watched_movie, get_total_watched_episodes, get_most_watched_movie_count
 from utils.get_dataframes import get_currently_watching, get_watch_status_list, get_watch_status_df
 from utils.update_dataframes import update_content_episode_watched, move_wish_to_current, edit_wish_list
+from utils.classes import ContentType, WatchStatus
 import logging
 import config.logging_config
 
@@ -11,15 +12,15 @@ logger = logging.getLogger(__name__)
 st.set_page_config(page_title="Content Tracker", layout="wide")
 logger.info("Main Page Accessed")
 # Storing some data in Variables which will print on the main screen
-last_movie_watched = get_last_watched("Movie")
+last_movie_watched = get_last_watched(ContentType.MOVIE.value)
 most_watched_movie = get_most_watched_movie()
-last_series_watched = get_last_watched("Series") 
+last_series_watched = get_last_watched(ContentType.SERIES.value) 
 total_episodes_watched = get_total_watched_episodes()
 most_watched_movie_count = get_most_watched_movie_count()
 df = get_currently_watching()
-wish_list_df = get_watch_status_df('Want To Watch')
-update_list = get_watch_status_list('Currently Watching')
-wish_list = get_watch_status_list('Want To Watch')
+wish_list_df = get_watch_status_df(WatchStatus.WISH.value)
+update_list = get_watch_status_list(WatchStatus.CURRENT.value)
+wish_list = get_watch_status_list(WatchStatus.WISH.value)
 
 
 # Main streamlit print to screen code
