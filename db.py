@@ -86,13 +86,13 @@ def fetch_movies()-> pd.DataFrame:
             df = pd.read_sql_query("SELECT * FROM movies", conn)
             return df
     except sqlite3.DatabaseError as e:
-        print(f"Database error: {e}")
+        logging.info(f"Database error: {e}")
         return pd.DataFrame()
     except sqlite3.OperationalError as e:
-        print(f"Database Error (table missing!): {e}")
+        logging.info(f"Database Error (table missing!): {e}")
         return pd.DataFrame()
     except Exception as e:
-        print(f"Unexpected Error as {e}")
+        logging.info(f"Unexpected Error as {e}")
         return pd.DataFrame()
 
 #Get the Series currently in Progress 
@@ -109,10 +109,12 @@ def get_last_watched(flag: str) -> str:
         with sqlite3.connect(DB_NAME) as conn:
             query = "SELECT title FROM movies WHERE content_type = ? ORDER BY id DESC LIMIT 1"
             df = pd.read_sql_query(query, conn, params=(flag,))
-            return df.iloc[0]['title'] if not df.empty else ""
     except Exception as e:
-        print(e)
+        logging.info(f"Unexpected Error found in get_last_watched function: {e}")
         return ""
-            
+    else:
+        logging.info(f"get_last_watched function executed successfully!")
+        return df.iloc[0]['title'] if not df.empty else ""
+
 
 
