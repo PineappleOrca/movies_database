@@ -6,7 +6,7 @@ from utils.update_dataframes import update_content_episode_watched, move_wish_to
 import logging
 
 # Page and logging config
-logger = logging.getLogget(__name__)
+logger = logging.getLogger(__name__)
 st.set_page_config(page_title="Content Tracker", layout="wide")
 
 # Storing some data in Variables which will print on the main screen
