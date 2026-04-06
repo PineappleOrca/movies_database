@@ -4,6 +4,11 @@ from db import fetch_movies
 from utils.get_stats import get_sum
 from utils.get_dataframes import get_content_df, get_content_genre_df
 from utils.classes import WatchStatus, ContentType, MovieGenre, BookGenre, SeriesGenre
+import logging
+
+# Initialising logger
+logging = logging.getLogger(__name__)
+logging.info(f"View Movies page has been accessed!")
 
 st.title("Content Finished List")
 
