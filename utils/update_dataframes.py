@@ -2,6 +2,9 @@ import pandas as pd
 import os 
 import sqlite3
 from utils.classes import WatchStatus
+import logging
+
+logging = logging.getLogger(__name__)
 
 def get_database():
     DB_FOLDER = "database"
@@ -37,7 +40,9 @@ def update_content_watch_status(content_name: str, watch_status: str)-> None:
     try:
         conn.execute(query, (watch_status, content_name))
     except sqlite3.Error as e:
-        print(f"An error has occured {e}")
+        logging.info(f"An error has occured {e}")
+    else:
+        logging.info(f"Successfully Updated {content_name}'s watch_status to {watch_status}!")
     finally:
         # Closing the connection to the database
         conn.close()
@@ -54,17 +59,15 @@ def update_content_episode_watched(content_name: str, episodes_watched: int) -> 
     """
     cursor.execute(select_query, (content_name,))
     result = cursor.fetchone()
-
     if result is None:
-        print(f"Content '{content_name}' not found in the database.")
+        logging.info(f"Content '{content_name}' not found in the database.")
         conn.close()
         return
-
     watched, total, status = result
     
     # Optional check: If you only want to update 'Currently Watching' shows
     if status != 'Currently Watching':
-        print(f"Content '{content_name}' is not currently being watched ({status}). Update aborted.")
+        logging.info(f"Content '{content_name}' is not currently being watched ({status}). Update aborted.")
         conn.close()
         return
 
@@ -92,9 +95,9 @@ def update_content_episode_watched(content_name: str, episodes_watched: int) -> 
     try:
         cursor.execute(update_query, params)
         conn.commit()
-        print(f"Successfully updated '{content_name}'. New status: {new_episodes}/{total} episodes watched.")
+        logging.info(f"Successfully updated '{content_name}'. New status: {new_episodes}/{total} episodes watched.")
     except sqlite3.Error as e:
-        print(f"An error has occurred: {e}")
+        logging.info(f"An error has occurred: {e}")
         conn.rollback() # Rollback changes if update fails
     finally:
         cursor.close()
@@ -129,7 +132,6 @@ def move_wish_to_current(content_name: str)->None:
     Docstring for move_wish_to_current
     """
     content_type = get_content_type(content_name)
-    print(content_type[0])
     query = ""
     status = ''
     if content_type[0] == "Series":
@@ -151,9 +153,9 @@ def move_wish_to_current(content_name: str)->None:
     try:
         conn.execute(query, params)
         conn.commit()
-        print(f"Successfully updated '{content_name}'. New status: {status}!")
+        logging.info(f"Successfully updated '{content_name}'. New status: {status}!")
     except sqlite3.Error as e:
-        print(f"An error has occurred: {e}")
+        logging.info(f"An error has occurred: {e}")
         conn.rollback() # Rollback changes if update fails
     finally:
         conn.close()
@@ -175,7 +177,7 @@ def edit_wish_list(content_name: str) -> None:
     :rtype: None
     '''
     if not check_content_status(content_name):
-        print("Please pick a valid title from the wish list!")
+        logging.info("Please pick a valid title from the wish list!")
     try:
         with get_database() as conn:
             cursor = conn.cursor()
@@ -183,9 +185,9 @@ def edit_wish_list(content_name: str) -> None:
             cursor.execute(query, (content_name,))
             conn.commit()
     except Exception as e:
-        print(f"Unexpected Error found: {e}")
+        logging.info(f"Unexpected Error found: {e}")
     else:
-        print(f"{content_name} has been removed from the database successfully!")
+        logging.info(f"{content_name} has been removed from the database successfully!")
 
 def check_content_status(content_name: str) -> bool:
     '''
@@ -200,7 +202,7 @@ def check_content_status(content_name: str) -> bool:
         if df['watch_status'].tolist()[0] == WatchStatus.WISH.value:
             return True
     except Exception as e:
-        print(f"Unexpected Error occurred: {e}")
+        logging.info(f"Unexpected Error occurred: {e}")
     else:
         return False
     
