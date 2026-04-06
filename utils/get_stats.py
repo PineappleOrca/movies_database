@@ -13,7 +13,10 @@ def get_sum(df: pd.DataFrame)->int:
     This function returns the number of times something has been watched
     Input: Pandas dataframe
     '''
-    return df['times_watched'].sum()
+    if df.empty:
+        return 0
+    else:
+        return df['times_watched'].sum()
 
 def get_most_watched_movie()->str:
     '''
