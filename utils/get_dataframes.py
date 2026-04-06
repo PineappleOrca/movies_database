@@ -26,10 +26,22 @@ def read_database()->pd.DataFrame:
         return pd.read_sql_query(query, conn)
 
 def get_content_df(df: pd.DataFrame, flag:str)->pd.DataFrame:
-    return df[(df['content_type']) == flag]
+    my_df = df[(df['content_type']) == flag]
+    if my_df.empty:
+        logging.info(f"The Dataframe is empty for {flag}")
+        return pd.DataFrame
+    else:
+        logging.info(f"Returning data for {flag}")
+        return df[(df['content_type']) == flag]
 
 def get_content_genre_df(df: pd.DataFrame, content_type: str, genre: str)-> pd.DataFrame:
-    return df[(df['content_type'] == content_type) & (df['genre'] == genre)]
+    my_df = df[(df['content_type'] == content_type) & (df['genre'] == genre)]
+    if my_df.empty:
+        logging.info(f"The Dataframe is empty for {content_type} with genre {genre}")
+        return pd.DataFrame
+    else:
+        logging.info(f"Returning data for {content_type} with genre {genre}")
+        return df[(df['content_type'] == content_type) & (df['genre'] == genre)]
         
 def get_currently_watching()->pd.DataFrame:
     '''
