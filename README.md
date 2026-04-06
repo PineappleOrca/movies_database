@@ -55,17 +55,16 @@
 - ** Wish list add from add movies page **
 - ** removed the wish list page (BUG) **
 - ** updated the db.py functions (BUG) **
-- [ ] **Function to delete items from wish list, only if watch_status == 'Want to Watch'** 
+- ** Function to delete items from wish list, only if watch_status == 'Want to Watch'**
+- ** Logging ** 
 - ✅ *Implemented on or before 05/04/2026*
 
 ## 🛠️ Planned Features
 
 - [ ] **Date Watched Field** – record when a title was completed  
 - [ ] **Function to Update total episodes and episodes watched for series**
-- [ ] **GUI button to refresh datasources to update datasource displays**
 - [ ] **Button to trigger database back up? or maybe cron job to back up database**
 - [ ] **Code Health + Code Refactor once functionality is added**
-- [ ] **Logging**
 - [ ] **Restore from back up function** 
 - [ ] **Back up Redundancy**
 - [ ] **Update the SQL for the database creation so that it works for a fresh run**
