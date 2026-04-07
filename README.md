@@ -69,13 +69,13 @@
 - [ ] **Back up Redundancy**
 - [ ] **Update the SQL for the database creation so that it works for a fresh run**
 - [ ] **Update the stats functions to work for empty or sparse datasets, handling a fresh start situation**
-- [ ] ** Write Unit tests! ** 
+- [ ] ** Write Unit tests! **
+- [ ] Connect to an API to improve movie/book/series inputs
+- [ ] Use streaming API to see where you can watch the content (Netflix/Disney etc)
 
 Front End Work In React JS
 - [ ] **Backend APIs in Python 3.x to serve an eventual React Front End
 - [ ] **React Front End
-- [ ] Add Personal Page for my own watch list
-- [ ] **Maybe look at a proper front end in Typescript/React or something along those lines 
 
 ## 🛠️ Known Bugs
 - [ ] Cold Start problem (i.e. new user) , need to fix code to handle new starts well.
@@ -84,5 +84,5 @@ Front End Work In React JS
 ## 🧱 Tech Stack
 
 - **Frontend**: [Streamlit](https://streamlit.io/)
-- **Backend**: Python + SQLite + Planned React Front End (Development in initial stages on local not on git yet)
+- **Backend**: Python + SQLite 
 - **Language**: Python 3.x
