@@ -79,6 +79,7 @@ Front End Work In React JS
 
 ## 🛠️ Known Bugs
 - [ ] Cold Start problem (i.e. new user) , need to fix code to handle new starts well.
+- [ ] Last watched Movie displays things even if they are added to the wish list.
 
 ## 🧱 Tech Stack
 
