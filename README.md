@@ -78,7 +78,7 @@ Front End Work In React JS
 - [ ] **Maybe look at a proper front end in Typescript/React or something along those lines 
 
 ## 🛠️ Known Bugs
-- [ ] I'm sure there are some I haven't fully tested them! 
+- [ ] Cold Start problem (i.e. new user) , need to fix code to handle new starts well.
 
 ## 🧱 Tech Stack
 
