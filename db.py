@@ -107,7 +107,7 @@ def get_last_watched(flag: str) -> str:
     """
     try:
         with sqlite3.connect(DB_NAME) as conn:
-            query = "SELECT title FROM movies WHERE content_type = ? ORDER BY id DESC LIMIT 1"
+            query = "SELECT title FROM movies WHERE content_type = ? AND watch_status = 'Watched' ORDER BY id DESC LIMIT 1"
             df = pd.read_sql_query(query, conn, params=(flag,))
     except Exception as e:
         logging.info(f"Unexpected Error found in get_last_watched function: {e}")
