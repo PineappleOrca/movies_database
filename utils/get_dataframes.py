@@ -6,6 +6,8 @@ import logging
 
 # Initialise the logger
 logging = logging.getLogger(__name__)
+DB_FOLDER = "database"
+DB_NAME = os.path.join(DB_FOLDER, "movies.db")
 
 def read_database()->pd.DataFrame:
     """
@@ -50,8 +52,13 @@ def get_currently_watching()->pd.DataFrame:
     :return: This function returns the dataframe for the content under the currently watching category. 
     :rtype: pandas DataFrame
     '''
-    df = read_database()
-    return df[df["watch_status"] == WatchStatus.CURRENT.value]
+    try:
+        with sqlite3.connect(DB_NAME) as conn:
+            query = """SELECT * FROM movies WHERE watch_status = 'Currently Watching'"""
+            df = pd.read_sql_query(query,conn)
+            return df if not df.empty else pd.DataFrame
+    except:
+        return pd.DataFrame
 
 def get_database():
     DB_FOLDER = "database"
@@ -124,10 +131,14 @@ def get_watch_status_list(flag: str)->list:
     :return: 
     :rtype: list
     """
-    conn = get_database()
-    query = """SELECT title FROM movies WHERE watch_status = ?"""
-    df = pd.read_sql_query(query, conn, params=(flag,))
-    return df['title'].tolist()
+    try:
+        with sqlite3.connect(DB_NAME) as conn:
+            query = """SELECT title FROM movies WHERE watch_status = ?"""
+            df = pd.read_sql_query(query, conn, params=(flag,))
+            title_list = df['title'].tolist()
+            return title_list if len(title_list) > 0 else []
+    except:
+        return []
 
 def get_watch_status_df(flag:str)->pd.DataFrame:
     """
@@ -136,6 +147,10 @@ def get_watch_status_df(flag:str)->pd.DataFrame:
     :return: 
     :rtype: pandas DataFrame
     """
-    conn = get_database()
-    query = """SELECT title FROM movies WHERE watch_status = ?"""
-    return pd.read_sql_query(query, conn, params=(flag,))
+    try: 
+        with sqlite3.connect(DB_NAME) as conn:
+            query = """SELECT title FROM movies WHERE watch_status = ?"""
+            df = pd.read_sql_query(query, conn, params=(flag,))
+            return df if not df.empty else pd.DataFrame
+    except:
+        return pd.DataFrame
