@@ -114,7 +114,7 @@ def get_last_watched(flag: str) -> str:
         return ""
     else:
         logging.info(f"get_last_watched function executed successfully!")
-        return df.iloc[0]['title'] if not df.empty else ""
+        return df.iloc[0]['title'] if not df.empty else f"There is no last watched content of type {flag}"
 
 
 

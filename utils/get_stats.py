@@ -2,6 +2,7 @@ import pandas as pd
 import os
 import sqlite3
 from .get_dataframes import fetch_database
+from .classes import ContentType, WatchStatus
 # This is a repository of helper functions for statistics to be displayed
 
 # Global variables to locate the databases
@@ -22,20 +23,22 @@ def get_most_watched_movie()->str:
     '''
     This function when called returns the most frequently watched movie name as a string
     '''
-    conn = sqlite3.connect(DB_NAME)
-    query = """
-    SELECT title
-    FROM movies
-    WHERE content_type = 'Movie'
-    ORDER BY times_watched DESC
-    LIMIT 1;
-    """
-    df = pd.read_sql_query(query, conn)
-    conn.close()
-    last_title = ""
-    if not df.empty:
-        last_title = df.iloc[0]['title']
-    return last_title
+    try:
+        with sqlite3.connect(DB_NAME) as conn:
+            query = """
+            SELECT title
+            FROM movies
+            WHERE content_type = 'Movie'
+            ORDER BY times_watched DESC
+            LIMIT 1;
+            """
+            df = pd.read_sql_query(query, conn)
+            last_title = "No Movies have been watched!"
+            if not df.empty:
+                last_title = df.iloc[0]['title']
+            return last_title
+    except:
+        return "No content has been watched yet!"
 
 def get_total_watched_episodes()->int:
     '''
@@ -44,11 +47,16 @@ def get_total_watched_episodes()->int:
     :return: returns the total count of all watched episodes for series.
     :rtype: int
     '''
-    df = fetch_database()
-    df = df[df['content_type'] == 'Series']
-    df = df[(df['watch_status'] == 'Currently Watching') | (df['watch_status'] == 'Watched') | (df['watch_status'] == 'Dropped')]
-    df['total'] = df['times_watched']*df['episodes_watched']
-    return df['total'].sum()
+    try:
+        with sqlite3.connect(DB_NAME) as conn:
+            query = """SELECT * FROM movies"""
+            df = pd.read_sql_query(query, conn)
+            df = df[df['content_type'] == ContentType.SERIES.value]
+            df = df[(df['watch_status'] == WatchStatus.CURRENT.value) | (df['watch_status'] == WatchStatus.WATCHED.value) | (df['watch_status'] == WatchStatus.DROP.value)]
+            df['total'] = df['times_watched']*df['episodes_watched']
+            return df['total'].sum() if not df.empty else 0
+    except:
+        return 0
 
 def get_most_watched_movie_count()->int:
     '''
@@ -57,7 +65,12 @@ def get_most_watched_movie_count()->int:
     :return: Returns the times_watched for the most_watched movie 
     :rtype: int
     '''
-    df = fetch_database()
-    most_watched_movie = get_most_watched_movie()
-    df = df[df['title'] == most_watched_movie]
-    return df['times_watched'].iloc[0]
+    try: 
+        with sqlite3.connect(DB_NAME) as conn:
+            query = """SELECT * FROM movies"""
+            df = pd.read_sql_query(query, conn)
+            most_watched_movie = get_most_watched_movie()
+            df = df[df['title'] == most_watched_movie]
+            return df['times_watched'].iloc[0] if not df.empty else 0
+    except:
+        return 0

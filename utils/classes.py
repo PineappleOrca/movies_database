@@ -23,3 +23,4 @@ class WatchStatus(Enum):
     CURRENT = 'Currently Watching'
     WATCHED = 'Watched'
     WISH = 'Want To Watch'
+    DROP = 'Dropped'
