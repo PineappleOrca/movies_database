@@ -115,14 +115,18 @@ def get_want_watch_list()->list:
     :return: Description
     :rtype: list
     """
-    conn = get_database()
-    query = """
-    SELECT title
-    FROM movies 
-    WHERE watch_status = 'Want To Watch'
-    """
-    df = pd.read_sql_query(query, conn)
-    return df['title'].tolist()
+    try:
+        with sqlite3.connect(DB_NAME) as conn:    
+            query = """
+            SELECT title
+            FROM movies 
+            WHERE watch_status = 'Want To Watch'
+            """
+            df = pd.read_sql_query(query, conn)
+            want_to_watch_list = df['title'].tolist()
+            return want_to_watch_list if len(want_to_watch_list) > 0 else []
+    except:
+        return []
 
 def get_watch_status_list(flag: str)->list:
     """

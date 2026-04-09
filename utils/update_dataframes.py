@@ -1,8 +1,9 @@
 import pandas as pd 
 import os 
 import sqlite3
-from utils.classes import WatchStatus
+from utils.classes import WatchStatus, ContentType
 import logging
+import streamlit as st
 
 logging = logging.getLogger(__name__)
 
@@ -31,21 +32,36 @@ def update_content_watch_status(content_name: str, watch_status: str)-> None:
     :params: content_name, watch_status (str)
     :returns: None
     """
+    check_query = "SELECT name FROM sqlite_master WHERE table='table' AND name='movies';"
     query = """
     UPDATE movies
     SET watch_status = ?
     WHERE title = ?
     """
-    conn = get_database()
+    create_query = '''
+                CREATE TABLE IF NOT EXISTS movies (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    title TEXT,
+                    content_type TEXT,
+                    genre TEXT,
+                    times_watched INTEGER DEFAULT 1,
+                    watch_status TEXT,
+                    total_episodes INTEGER DEFAULT 1,
+                    episodes_watched INTEGER DEFAULT 1
+                )
+            '''
     try:
-        conn.execute(query, (watch_status, content_name))
+        with get_database() as conn:
+            table_exists = conn.execute(check_query).fetchone()
+            if not table_exists:
+                logging.error("The 'movies' table does not exist! Creating a new one!")
+                conn.execute(create_query)
+            cursor = conn.execute(query, (watch_status, content_name))      
     except sqlite3.Error as e:
-        logging.info(f"An error has occured {e}")
+        logging.info(f"An error has occured {e}")        
     else:
         logging.info(f"Successfully Updated {content_name}'s watch_status to {watch_status}!")
-    finally:
-        # Closing the connection to the database
-        conn.close()
+
 
 def update_content_episode_watched(content_name: str, episodes_watched: int) -> None:
     conn = get_database() # Assuming this connects to the SQLite DB
@@ -134,20 +150,20 @@ def move_wish_to_current(content_name: str)->None:
     content_type = get_content_type(content_name)
     query = ""
     status = ''
-    if content_type[0] == "Series":
+    if content_type[0] == ContentType.SERIES.value:
         query = """
         UPDATE movies 
         SET watch_status = 'Currently Watching', times_watched = 1
         WHERE title = ? 
         """
-        status = 'Currently Watching'
+        status = WatchStatus.CURRENT.value
     else:
         query = """
         UPDATE movies 
         SET watch_status = 'Watched', times_watched = 1
         WHERE title = ? 
         """ 
-        status = 'Watched'
+        status = WatchStatus.WATCHED.value
     conn = get_database()
     params = (content_name,)
     try:
