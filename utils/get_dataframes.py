@@ -1,6 +1,7 @@
 import pandas as pd
 import os
 import sqlite3 
+from utils.utility_functions import get_empty_df
 from utils.classes import ContentType, MovieGenre, SeriesGenre, BookGenre, WatchStatus
 import logging 
 
@@ -31,7 +32,7 @@ def get_content_df(df: pd.DataFrame, flag:str)->pd.DataFrame:
     my_df = df[(df['content_type']) == flag]
     if my_df.empty:
         logging.info(f"The Dataframe is empty for {flag}")
-        return pd.DataFrame
+        return get_empty_df()
     else:
         logging.info(f"Returning data for {flag}")
         return df[(df['content_type']) == flag]
@@ -40,7 +41,7 @@ def get_content_genre_df(df: pd.DataFrame, content_type: str, genre: str)-> pd.D
     my_df = df[(df['content_type'] == content_type) & (df['genre'] == genre)]
     if my_df.empty:
         logging.info(f"The Dataframe is empty for {content_type} with genre {genre}")
-        return pd.DataFrame
+        return get_empty_df()
     else:
         logging.info(f"Returning data for {content_type} with genre {genre}")
         return df[(df['content_type'] == content_type) & (df['genre'] == genre)]
@@ -56,9 +57,9 @@ def get_currently_watching()->pd.DataFrame:
         with sqlite3.connect(DB_NAME) as conn:
             query = """SELECT * FROM movies WHERE watch_status = 'Currently Watching'"""
             df = pd.read_sql_query(query,conn)
-            return df if not df.empty else pd.DataFrame
+            return df if not df.empty else get_empty_df()
     except:
-        return pd.DataFrame
+        return get_empty_df()
 
 def get_database():
     DB_FOLDER = "database"
@@ -155,6 +156,6 @@ def get_watch_status_df(flag:str)->pd.DataFrame:
         with sqlite3.connect(DB_NAME) as conn:
             query = """SELECT title FROM movies WHERE watch_status = ?"""
             df = pd.read_sql_query(query, conn, params=(flag,))
-            return df if not df.empty else pd.DataFrame
+            return df if not df.empty else get_empty_df()
     except:
-        return pd.DataFrame
+        return get_empty_df()

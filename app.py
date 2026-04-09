@@ -56,10 +56,10 @@ st.dataframe(wish_list_df)
 
 wish_title = st.selectbox("Series Name", wish_list)
 if st.button("Update"):
-    move_wish_to_current(wish_title)
+    #move_wish_to_current(wish_title)
     st.success(f"Content: {wish_title} moved to Currently Watching!")
     logger.info(f"Content: {wish_title} moved to Currently Watching!")
 if st.button("Delete"):
-    edit_wish_list(wish_title)
+    #edit_wish_list(wish_title)
     st.success(f"Content: {wish_title} removed from the wish list!")
     logger.info(f"Content: {wish_title} removed from the wish list!")

@@ -201,7 +201,7 @@ def edit_wish_list(content_name: str) -> None:
             cursor.execute(query, (content_name,))
             conn.commit()
     except Exception as e:
-        logging.info(f"Unexpected Error found: {e}")
+        logging.error(f"Unexpected Error found: {e}")
     else:
         logging.info(f"{content_name} has been removed from the database successfully!")
 
@@ -218,7 +218,7 @@ def check_content_status(content_name: str) -> bool:
         if df['watch_status'].tolist()[0] == WatchStatus.WISH.value:
             return True
     except Exception as e:
-        logging.info(f"Unexpected Error occurred: {e}")
+        logging.error(f"Unexpected Error occurred: {e}")
     else:
         return False
     
