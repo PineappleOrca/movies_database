@@ -59,15 +59,12 @@
 - ** Logging ** 
 - ✅ *Implemented on or before 05/04/2026*
 - ** Updated the code to work from cold start ( just one little bug left)
+- ** Bug Fix , main landing page no longer displays last watched movie as something added to wish list
 
 ## 🛠️ Planned Features
 
 - [ ] **Date Watched Field** – record when a title was completed  
 - [ ] **Code Health + Code Refactor once functionality is added**
-- [ ] **Restore from back up function** 
-- [ ] **Back up Redundancy**
-- [ ] **Update the SQL for the database creation so that it works for a fresh run**
-- [ ] **Update the stats functions to work for empty or sparse datasets, handling a fresh start situation**
 - [ ] ** Write Unit tests! **
 - [ ] Connect to an API to improve movie/book/series inputs
 - [ ] Use streaming API to see where you can watch the content (Netflix/Disney etc)
@@ -78,11 +75,9 @@ Front End Work In React JS
 
 ## 🛠️ Known Bugs
 - [ ] Cold Start problem (i.e. new user) , need to fix code to handle new starts well.
-- [ ] Last watched Movie displays things even if they are added to the wish list.
 
 ## 🧱 Tech Stack
 
 - **Frontend**: [Streamlit](https://streamlit.io/)
 - **Backend**: Python + SQLite 
 - **Language**: Python 3.x
-- Test
