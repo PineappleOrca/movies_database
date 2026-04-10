@@ -58,12 +58,11 @@
 - ** Function to delete items from wish list, only if watch_status == 'Want to Watch'**
 - ** Logging ** 
 - ✅ *Implemented on or before 05/04/2026*
+- ** Updated the code to work from cold start ( just one little bug left)
 
 ## 🛠️ Planned Features
 
 - [ ] **Date Watched Field** – record when a title was completed  
-- [ ] **Function to Update total episodes and episodes watched for series**
-- [ ] **Button to trigger database back up? or maybe cron job to back up database**
 - [ ] **Code Health + Code Refactor once functionality is added**
 - [ ] **Restore from back up function** 
 - [ ] **Back up Redundancy**
