@@ -46,16 +46,7 @@ def create_table()->None:
         logging.info(f"Successfully created new movies.db file!")
 
 def check_exists()->bool:
-    try:
-        with sqlite3.connect(DB_NAME) as conn:
-            query = "SELECT * FROM movies"
-            df = pd.read_sql_query(query, conn)
-            if df.empty:
-                return False
-    except Exception as e:
-        logging.error(f"Unexpected error found in check_exists() function in db.py file as:{e}!")
-        return False
-    else:
+    if os.path.exists(DB_NAME):
         return True
 
 # Add or update movie
