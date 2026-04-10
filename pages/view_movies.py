@@ -13,10 +13,15 @@ logging.info(f"View Movies page has been accessed!")
 st.title("Content Finished List")
 
 df = fetch_movies()
-df = df[df["watch_status"] == WatchStatus.WATCHED.value]
-
 if df.empty:
     st.warning("No movies logged yet.")
+    logging.info("No movies.db file!")
+else:
+    df = df[df["watch_status"] == WatchStatus.WATCHED.value]
+
+if df.empty:
+    st.warning("No content watched yet.")
+    logging.info("No content watched yet.")
 else:
     genre_filter = st.selectbox("Filter by Genre", ["All"] + list(df["genre"].unique()))
     
