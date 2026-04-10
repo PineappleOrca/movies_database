@@ -41,37 +41,54 @@ def create_table()->None:
             ''')
             conn.commit()
     except Exception as e:
-        logging.info(f"Unexpected error found as {e}!")
+        logging.error(f"Unexpected error found as {e}!")
     else:
         logging.info(f"Successfully created new movies.db file!")
 
-# Add or update movie
-def add_movie(title: str, content_type: str, genre: str, watch_options: str, total_episodes: int, episodes_watched: int) -> None:
+def check_exists()->bool:
     try:
         with sqlite3.connect(DB_NAME) as conn:
-            cursor = conn.cursor()
-            # Clean the title of trailing and leading white spaces
-            title = title.strip()
-            # Check if movie already exists
-            cursor.execute("SELECT times_watched FROM movies WHERE title = ?", (title,))
-            result = cursor.fetchone()
-            if result:  # Movie exists, update times_watched
-                times_watched = int(result[0]) + 1
-                cursor.execute("UPDATE movies SET times_watched = ? WHERE title = ?", 
-                            (times_watched, title))
-                logging.info(f"{title} now has times_watched = {times_watched} updated successfully!")
-            else:  # New movie, insert as fresh entry
-                if content_type in (ContentType.MOVIE.value, ContentType.BOOK.value):
-                    total_episodes = 1
-                    episodes_watched = 1
-                cursor.execute("INSERT INTO movies (title, content_type, genre, times_watched, watch_status, episodes_watched, total_episodes) VALUES (?, ?, ?, ?, ?, ?, ?)", 
-                            (title, content_type, genre, 1, watch_options, episodes_watched, total_episodes))
-                logging.info(f"A New Content: {title} was added to the database")
-            conn.commit()
+            query = "SELECT * FROM movies"
+            df = pd.read_sql_query(query, conn)
+            if df.empty:
+                return False
     except Exception as e:
-        logging.info(f"Error! Unable to add movie with error {e}")
+        logging.error(f"Unexpected error found in check_exists() function in db.py file as:{e}!")
+        return False
     else:
-        logging.info(f"{title} of type {content_type} was successfully added to the database!")
+        return True
+
+# Add or update movie
+def add_movie(title: str, content_type: str, genre: str, watch_options: str, total_episodes: int, episodes_watched: int) -> None:
+    db_exist_check = check_exists()
+    if not db_exist_check:
+        create_table()
+    else:
+        try:
+            with sqlite3.connect(DB_NAME) as conn:
+                cursor = conn.cursor()
+                # Clean the title of trailing and leading white spaces
+                title = title.strip()
+                # Check if movie already exists
+                cursor.execute("SELECT times_watched FROM movies WHERE title = ?", (title,))
+                result = cursor.fetchone()
+                if result:  # Movie exists, update times_watched
+                    times_watched = int(result[0]) + 1
+                    cursor.execute("UPDATE movies SET times_watched = ? WHERE title = ?", 
+                                (times_watched, title))
+                    logging.info(f"{title} now has times_watched = {times_watched} updated successfully!")
+                else:  # New movie, insert as fresh entry
+                    if content_type in (ContentType.MOVIE.value, ContentType.BOOK.value):
+                        total_episodes = 1
+                        episodes_watched = 1
+                    cursor.execute("INSERT INTO movies (title, content_type, genre, times_watched, watch_status, episodes_watched, total_episodes) VALUES (?, ?, ?, ?, ?, ?, ?)", 
+                                (title, content_type, genre, 1, watch_options, episodes_watched, total_episodes))
+                    logging.info(f"A New Content: {title} was added to the database")
+                conn.commit()
+        except Exception as e:
+            logging.error(f"Error! Unable to add movie in add_movie() in db.py with error: {e}")
+        else:
+            logging.info(f"{title} of type {content_type} was successfully added to the database!")
 
 # Fetch movies
 def fetch_movies()-> pd.DataFrame:
