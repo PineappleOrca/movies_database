@@ -7,6 +7,17 @@ from utils.classes import ContentType, WatchStatus
 import logging
 import config.logging_config
 
+def get_landing_page_stats() -> dict:
+    data_dict = {}
+    last_movie_watched = get_last_watched(ContentType.MOVIE.value)
+    most_watched_movie = get_most_watched_movie()
+    last_series_watched = get_last_watched(ContentType.SERIES.value) 
+    total_episodes_watched = get_total_watched_episodes()
+    most_watched_movie_count = get_most_watched_movie_count()
+    update_list = get_watch_status_list(WatchStatus.CURRENT.value)
+    wish_list = get_watch_status_list(WatchStatus.WISH.value)
+    df = get_currently_watching()
+
 # Page and logging config
 logger = logging.getLogger(__name__)
 st.set_page_config(page_title="Content Tracker", layout="wide")
@@ -14,9 +25,9 @@ logger.info("Main Page Accessed")
 # Storing some data in Variables which will print on the main screen
 last_movie_watched = get_last_watched(ContentType.MOVIE.value)
 most_watched_movie = get_most_watched_movie()
-last_series_watched = get_last_watched(ContentType.SERIES.value) 
-total_episodes_watched = get_total_watched_episodes()
 most_watched_movie_count = get_most_watched_movie_count()
+total_episodes_watched = get_total_watched_episodes()
+last_series_watched = get_last_watched(ContentType.SERIES.value) 
 df = get_currently_watching()
 wish_list_df = get_watch_status_df(WatchStatus.WISH.value)
 update_list = get_watch_status_list(WatchStatus.CURRENT.value)
@@ -63,3 +74,5 @@ if st.button("Delete"):
     #edit_wish_list(wish_title)
     st.success(f"Content: {wish_title} removed from the wish list!")
     logger.info(f"Content: {wish_title} removed from the wish list!")
+
+#if __name__ == "__main__":

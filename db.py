@@ -103,13 +103,13 @@ def fetch_movies()-> pd.DataFrame:
             df = pd.read_sql_query("SELECT * FROM movies", conn)
             return df
     except sqlite3.DatabaseError as e:
-        logging.info(f"Database error: {e}")
+        logging.error(f"Database error: {e}")
         return pd.DataFrame()
     except sqlite3.OperationalError as e:
-        logging.info(f"Database Error (table missing!): {e}")
+        logging.error(f"Database Error (table missing!): {e}")
         return pd.DataFrame()
     except Exception as e:
-        logging.info(f"Unexpected Error as {e}")
+        logging.error(f"Unexpected Error as {e}")
         return pd.DataFrame()
 
 #Get the Series currently in Progress 
