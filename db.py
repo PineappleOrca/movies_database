@@ -2,7 +2,6 @@ import sqlite3
 import pandas as pd
 import os
 from utils.classes import ContentType
-from utils.utility_functions import get_empty_df
 import logging
 
 # Adding in functionality using the os module for cross platform funcitonality
@@ -125,13 +124,3 @@ def get_last_watched(flag: str) -> str:
         logging.info(f"get_last_watched function executed successfully!")
         return df.iloc[0]['title'] if not df.empty else f"There is no last watched content of type {flag}"
 
-def get_content_database(query: str) -> pd.DataFrame:
-    try:
-        with sqlite3.connect(DB_NAME) as conn:
-            df = pd.read_sql_query(query,conn)
-            if not df.empty:
-                return df
-    except Exception as e:
-        logging.error(f"Error with the getting the database {e} while running query: {query}")
-    else:
-        return get_empty_df()
