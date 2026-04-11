@@ -152,10 +152,24 @@ def get_watch_status_df(flag:str)->pd.DataFrame:
     :return: 
     :rtype: pandas DataFrame
     """
-    try: 
+    query = """SELECT title FROM movies WHERE watch_status = ?"""
+    get_content_dataframe(query, flag)
+    #try: 
+    #    with sqlite3.connect(DB_NAME) as conn:
+    #        
+    #        df = pd.read_sql_query(query, conn, params=(flag,))
+    #        return df if not df.empty else get_empty_df()
+    #except:
+    #    return get_empty_df()
+    
+def get_content_dataframe(query: str, flag: str = None) -> pd.DataFrame:
+    try:
         with sqlite3.connect(DB_NAME) as conn:
-            query = """SELECT title FROM movies WHERE watch_status = ?"""
-            df = pd.read_sql_query(query, conn, params=(flag,))
-            return df if not df.empty else get_empty_df()
-    except:
+            params = (flag,) if flag is not None else None
+            df = pd.read_sql_query(query,conn, params=params)
+            if not df.empty:
+                return df
+            return get_empty_df()
+    except Exception as e:
+        logging.error(f"Error with the getting the database {e} while running query: {query}")
         return get_empty_df()
