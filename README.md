@@ -68,6 +68,9 @@
 - [ ] ** Write Unit tests! **
 - [ ] Connect to an API to improve movie/book/series inputs
 - [ ] Use streaming API to see where you can watch the content (Netflix/Disney etc)
+- [ ] Ability to Edit Database (change episodes if not known etc)
+- [ ] View content listed as 'Dropped' in case someone wants to pick it up again
+- [ ] Figure out how to add different user support (centralised database , user logs in to only view their data)
 
 Front End Work In React JS
 - [ ] **Backend APIs in Python 3.x to serve an eventual React Front End
