@@ -126,7 +126,8 @@ def get_want_watch_list()->list:
             df = pd.read_sql_query(query, conn)
             want_to_watch_list = df['title'].tolist()
             return want_to_watch_list if len(want_to_watch_list) > 0 else []
-    except:
+    except Exception as e:
+        logger.error(f"Exception occurred in get_want_watch_list function with error {e}")
         return []
 
 def get_watch_status_list(flag: str)->list:
@@ -154,13 +155,14 @@ def get_watch_status_df(flag:str)->pd.DataFrame:
     """
     query = """SELECT title FROM movies WHERE watch_status = ?"""
     get_content_dataframe(query, flag)
-    #try: 
-    #    with sqlite3.connect(DB_NAME) as conn:
-    #        
-    #        df = pd.read_sql_query(query, conn, params=(flag,))
-    #        return df if not df.empty else get_empty_df()
-    #except:
-    #    return get_empty_df()
+    try: 
+        with sqlite3.connect(DB_NAME) as conn:
+            query = """SELECT title, content_type FROM movies WHERE watch_status = ?"""   
+            df = pd.read_sql_query(query, conn, params=(flag,))
+            return df if not df.empty else get_empty_df()
+    except Exception as e:
+        logger.error(f"Exception in get_watch_status_df: {e}")
+        return get_empty_df()
     
 def get_content_dataframe(query: str, flag: str = None) -> pd.DataFrame:
     try:

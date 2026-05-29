@@ -27,10 +27,10 @@ if __name__ == "__main__":
     #        col1.metric("Last Movie", get_last_watched(ContentType.MOVIE.value))
     #        col2.metric("Total Episodes", get_total_watched_episodes())
     #        col3.metric("Most Watched", get_most_watched_movie())
-    #st.write(f"Last Movie Watched: {get_last_watched(ContentType.MOVIE.value)}")
-    #st.write(f"Last Series Watched: {get_last_watched(ContentType.SERIES.value) }")
-    #st.write(f"Most Frequently Watched Movie: {get_most_watched_movie()} a total of {get_most_watched_movie_count()} times!!!")
-    #st.write(f"Total Episodes Watched (All Series Anime + Other): {get_total_watched_episodes()}")
+    st.write(f"Last Movie Watched: {get_last_watched(ContentType.MOVIE.value)}")
+    st.write(f"Last Series Watched: {get_last_watched(ContentType.SERIES.value) }")
+    st.write(f"Most Frequently Watched Movie: {get_most_watched_movie()} a total of {get_most_watched_movie_count()} times!!!")
+    st.write(f"Total Episodes Watched (All Series Anime + Other): {get_total_watched_episodes()}")
 
     # Display the dataframe for series in progress
     st.title("Currently Watching")
@@ -43,7 +43,7 @@ if __name__ == "__main__":
     if st.button("Submit"):
         if title.strip() == "":
             st.error("⚠️ Title cannot be empty!") # catch and log error? 
-            logger.info(f"⚠️ Title cannot be empty!")
+            logger.error(f"⚠️ Title cannot be empty!")
         else:
             update_content_episode_watched(title, episodes)
             st.success(f"Content '{title}' updated successfully!")
