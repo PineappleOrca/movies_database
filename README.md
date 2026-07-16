@@ -60,20 +60,20 @@
 - ✅ *Implemented on or before 05/04/2026*
 - ** Updated the code to work from cold start ( just one little bug left)
 - ** Bug Fix , main landing page no longer displays last watched movie as something added to wish list
+- ** Implemented Date watched field
 
 ## 🛠️ Planned Features
 
-- [ ] **Date Watched Field** – record when a title was completed  
 - [ ] **Code Health + Code Refactor once functionality is added**
 - [ ] ** Write Unit tests! **
 - [ ] Connect to an API to improve movie/book/series inputs
 - [ ] Use streaming API to see where you can watch the content (Netflix/Disney etc)
 - [ ] Ability to Edit Database (change episodes if not known etc)
 - [ ] View content listed as 'Dropped' in case someone wants to pick it up again
-- [ ] Figure out how to add different user support (centralised database , user logs in to only view their data)
+- [ ] Figure out how to add different user support (centralised database , user logs in to only view their data) <- this is easier once FastAPI implementation is done
 
 Front End Work In React JS
-- [ ] **Backend APIs in Python 3.x to serve an eventual React Front End
+- [ ] **Backend APIs in Python 3.x to serve an eventual React Front End 
 - [ ] **React Front End
 
 ## 🛠️ Known Bugs
