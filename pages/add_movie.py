@@ -2,6 +2,7 @@ import streamlit as st
 from db import add_movie
 from utils.classes import ContentType, MovieGenre, SeriesGenre, BookGenre, WatchStatus
 import logging
+from datetime import date
 
 # Initialising the logger
 logging = logging.getLogger(__name__)
@@ -14,6 +15,7 @@ type_of_content = st.radio("Type of Content", [ContentType.MOVIE.value, ContentT
 watch_options = st.radio("Watch Status", [WatchStatus.WATCHED.value, WatchStatus.CURRENT.value, WatchStatus.WISH.value])
 total_episodes = st.text_input("Total Number of Episodes")
 episodes_watched = st.text_input("Episodes Watched Already")
+date_watched = st.date_input("Watch date: ", format="DD-MM-YYYY")
 if type_of_content == ContentType.MOVIE.value:
     genre_options = [MovieGenre.HORROR.value, MovieGenre.ANIMATION.value, MovieGenre.OTHER.value]
 elif type_of_content == ContentType.SERIES.value: 
@@ -29,6 +31,6 @@ if st.button("Submit"):
         st.error("⚠️ Title cannot be empty!") # catch and log error? 
         logging.info(f"⚠️ Title cannot be empty!")
     else:
-        add_movie(title, type_of_content, genre, watch_options, total_episodes, episodes_watched)
+        add_movie(title, type_of_content, genre, watch_options, total_episodes, episodes_watched, date_watched)
         st.success(f"'{title}' has been added to the database successfully!") 
         logging.info(f"'{title}' has been added to the database successfully!")

@@ -3,6 +3,7 @@ import pandas as pd
 import os
 from utils.classes import ContentType
 import logging
+from datetime import date
 
 # Adding in functionality using the os module for cross platform funcitonality
 # Root Database Folder
@@ -36,7 +37,8 @@ def create_table()->None:
                     times_watched INTEGER DEFAULT 1,
                     watch_status TEXT,
                     total_episodes INTEGER DEFAULT 1,
-                    episodes_watched INTEGER DEFAULT 1
+                    episodes_watched INTEGER DEFAULT 1,
+                    event_date DATE
                 )
             ''')
             conn.commit()
@@ -50,7 +52,7 @@ def check_exists()->bool:
         return True
 
 # Add or update movie
-def add_movie(title: str, content_type: str, genre: str, watch_options: str, total_episodes: int, episodes_watched: int) -> None:
+def add_movie(title: str, content_type: str, genre: str, watch_options: str, total_episodes: int, episodes_watched: int, event_date: date = None) -> None:
     db_exist_check = check_exists()
     if not db_exist_check:
         create_table()
@@ -72,8 +74,8 @@ def add_movie(title: str, content_type: str, genre: str, watch_options: str, tot
                     if content_type in (ContentType.MOVIE.value, ContentType.BOOK.value):
                         total_episodes = 1
                         episodes_watched = 1
-                    cursor.execute("INSERT INTO movies (title, content_type, genre, times_watched, watch_status, episodes_watched, total_episodes) VALUES (?, ?, ?, ?, ?, ?, ?)", 
-                                (title, content_type, genre, 1, watch_options, episodes_watched, total_episodes))
+                    cursor.execute("INSERT INTO movies (title, content_type, genre, times_watched, watch_status, episodes_watched, total_episodes, event_date) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", 
+                                (title, content_type, genre, 1, watch_options, episodes_watched, total_episodes, event_date))
                     logging.info(f"A New Content: {title} was added to the database")
                 conn.commit()
         except Exception as e:
