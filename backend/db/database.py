@@ -5,7 +5,7 @@ from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine, async_sessionmaker
 from sqlalchemy.orm import DeclarativeBase, relationship
 from datetime import datetime, date
-from fastapi_users.db import SQLAlchemyBaseUserTableUUID, SQLAlchemyDatabase
+from fastapi_users.db import SQLAlchemyBaseUserTableUUID, SQLAlchemyUserDatabase
 from fastapi import Depends
 
 DATABASE_URL = "sqlite+aiosqlite:///../database/movies.db"
@@ -41,4 +41,4 @@ async def get_async_session() -> AsyncGenerator[AsyncSession, None]:
         yield session
 
 async def get_movies_db(session: AsyncSession = Depends(get_async_session)):
-    yield SQLAlchemyDatabase(session, User)
+    yield SQLAlchemyUserDatabase(session, User)
