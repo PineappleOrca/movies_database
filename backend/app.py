@@ -1,13 +1,13 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from api.routes import movies#, wishlist, stats
+from api.routes import movies
 import uvicorn
 
 app = FastAPI(title="Movies Database API")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["localhost:8501"],
+    allow_origins=["localhost:8000"],
     allow_methods=["*"],
     allow_headers=["*"],
 )
@@ -22,5 +22,4 @@ def root():
     return {"message": "Movies Database API"}
 
 if __name__ == "__main__":
-    import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8000, reload=True)
